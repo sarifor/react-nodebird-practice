@@ -1,0 +1,27 @@
+{ // 1300- 실습/ ESLint 기본 설정법, VS 코드 연계법 찾아보기- 
+  "name": "react-nodebird-practice",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": "^14.19.1",
+    "npm": "^6.14.16"
+  },
+  "main": "index.js",
+  "scripts": {
+    "dev": "next"
+  },
+  "author": "sarifor",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "next": "^12.3.4",
+    "prop-types": "^15.7.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.14.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0"
+  }
+}

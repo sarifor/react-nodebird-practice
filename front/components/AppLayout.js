@@ -1,22 +1,46 @@
+// # AppLayout.js
+// - 일부 공통인 애들용
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { Menu } from 'antd';
 
+const items = [
+  {
+    label: <Link href="/"><a>Home</a></Link>,
+    key: '/',
+  },
+  {
+    label: <Link href="/profile"><a>Profile</a></Link>,
+    key: 'profile',
+  },
+  {
+    label: <Link href="/signup"><a>Sign Up</a></Link>,
+    key: 'signup',
+  },  
+];
 const AppLayout = ({ children }) => {
+  const router = useRouter();
+  const current = router.pathname;
+
   return (
     <div>
-      <div>
-        <Link href="/"><a>Home</a></Link> {/* <Link><a> 함께 쓰기 */}
-        <Link href="/profile"><a>Profile</a></Link>
-        <Link href="/signup"><a>Sign Up</a></Link>
-      </div>
+      <Menu selectedKeys={[current]} mode="horizontal">
+        {items.map(item => (
+          <Menu.Item key={item.key}>
+            {item.label}
+          </Menu.Item>
+        ))}
+      </Menu>
       {children}
     </div>
   )
 };
 
 AppLayout.propTypes = {
-  children: PropTypes.node.isRequired, // 리액트의 노드. 화면에 그릴 수 있는 모든 것들
+  children: PropTypes.node.isRequired,
 };
 
 export default AppLayout;

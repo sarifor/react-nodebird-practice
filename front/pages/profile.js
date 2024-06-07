@@ -1,10 +1,13 @@
+import AppLayout from "../components/AppLayout";
 import OtherLayout from '../components/OtherLayout';
 
 const Profile = () => {
   return (
-    <OtherLayout>
-      <div>Profile</div>
-    </OtherLayout>
+    <AppLayout>
+      <OtherLayout>
+        <div>Profile</div>
+      </OtherLayout>
+    </AppLayout>
   )
 }
 

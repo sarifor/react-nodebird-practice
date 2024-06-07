@@ -49,7 +49,7 @@ const AppLayout = ({ children }) => {
           {children}
         </Col>
         <Col xs={24} md={6}>
-          오른쪽
+          <a href="https://github.com/sarifor" target="_blank" rel="noreferrer noopener">Sarifor!</a>
         </Col>
       </Row>
     </div>

@@ -5,7 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Menu } from 'antd';
+import { Menu, Row, Col } from 'antd';
 import { Input } from 'antd';
 
 const Search = Input.Search;
@@ -41,7 +41,17 @@ const AppLayout = ({ children }) => {
           </Menu.Item>
         ))}
       </Menu>
-      {children}
+      <Row> {/* 작은 화면에서는 세 Col이 수직으로 쌓이고, 중간 이상 화면에서는 수평으로 배치 */}
+        <Col xs={24} md={6}>
+          왼쪽
+        </Col>
+        <Col xs={24} md={12}>
+          {children}
+        </Col>
+        <Col xs={24} md={6}>
+          오른쪽
+        </Col>
+      </Row>
     </div>
   )
 };

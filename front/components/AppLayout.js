@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Menu } from 'antd';
 import { Input } from 'antd';
+
 const Search = Input.Search;
 
 const items = [

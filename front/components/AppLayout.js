@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Menu } from 'antd';
+import { Input } from 'antd';
+const Search = Input.Search;
 
 const items = [
   {
@@ -20,6 +22,10 @@ const items = [
     label: <Link href="/signup"><a>Sign Up</a></Link>,
     key: 'signup',
   },  
+  {
+    label: <Search placeholder="input hashtag" enterButton="Search" />,
+    key: 'search',
+  },    
 ];
 const AppLayout = ({ children }) => {
   const router = useRouter();

@@ -8,13 +8,14 @@ const ButtonWrapper = styled.div`
 `;
 
 const LoginForm = ({ setIsLoggedIn }) => {
+  // ID Hooks 세트
   const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
-
   const onChangeId = useCallback((e) => {
     setId(e.target.value);
   }, []);
 
+  // Password Hooks 세트
+  const [password, setPassword] = useState('');
   const onChangePassword = useCallback((e) => { // 컴포넌트에 props로 넘겨주는 함수는 useCallback 꼭 사용
     setPassword(e.target.value);
   }, []);

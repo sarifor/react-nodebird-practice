@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useCallback} from 'react';
 import AppLayout from "../components/AppLayout";
 import {
   Button,
@@ -9,10 +9,27 @@ import {
   Select,
 } from 'antd';
 
-const Signup = () => { // 비번, 닉네임, 생일, 성별
+const Signup = () => {
+  // ID Hooks 세트
+  const [id, setId] = useState('');
+  const onChangeId = useCallback((e) => {
+    setId(e.target.value);
+  }, []);
+
+
+  // Nickname Hooks 세트
+
+
+  // Password Hooks 세트
+
+
+  const onSubmitForm = useCallback(() => {
+    console.log();
+  }, []);
+
   return (
     <AppLayout>
-      <Form
+      <Form onFinish={onSubmitForm}
         labelCol={{
           span: 4,
         }}
@@ -28,8 +45,11 @@ const Signup = () => { // 비번, 닉네임, 생일, 성별
           maxWidth: 600,
         }}
       >
+        <Form.Item label="ID">
+          <Input value={id} onChange={onChangeId} />
+        </Form.Item>        
         <Form.Item label="Nickname">
-          <Input />
+          <Input value={nickname} />
         </Form.Item>
         <Form.Item label="Gender">
           <Select>

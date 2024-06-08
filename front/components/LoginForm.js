@@ -7,7 +7,7 @@ const ButtonWrapper = styled.div`
   margin-top: 10px;
 `;
 
-const LoginForm = () => {
+const LoginForm = ({ setIsLoggedIn }) => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
 
@@ -19,8 +19,14 @@ const LoginForm = () => {
     setPassword(e.target.value);
   }, []);
 
+  const onSubmitForm = useCallback(() => { // 컴포넌트에 넣는 거라 useCallback으로 감쌈
+    // e.preventDefault(); // onFinish에 이미 preventDefault 적용되어 있음
+    console.log(id, password);
+    setIsLoggedIn(true);
+  }, []);
+
   return (
-    <Form>
+    <Form onFinish={onSubmitForm}>
       <div>
         <label htmlFor="user-id">ID</label>
         <br />

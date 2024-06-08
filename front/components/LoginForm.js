@@ -37,7 +37,7 @@ const LoginForm = () => {
           required
         />
       </div>
-      <ButtonWrapper> {/* Inline Styling 대신 Styled Component로 리렌더링 최적화 */}
+      <ButtonWrapper> {/* Inline Styling 대신 Styled Component(혹은 useMemo)로 리렌더링 최적화 */}
         <Button type="primary" htmlType="submit" loading={false}>Login</Button>
         <Link href="/signup"><a><Button>Sign Up</Button></a></Link>
       </ButtonWrapper>

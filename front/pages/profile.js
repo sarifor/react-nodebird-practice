@@ -8,22 +8,22 @@ import UserList from '../components/UserList';
 const Profile = () => {
   const followingList = [
     {
-      title: 'Jenny',
+      nickname: 'Jenny',
       description: 'Cat face'
     },
     {
-      title: 'Haerin',
+      nickname: 'Haerin',
       description: 'New Cat face'
     },
   ];
 
   const followerList = [
     {
-      title: 'Ikko',
+      nickname: 'Ikko',
       description: '1111'
     },
     {
-      title: 'Niko',
+      nickname: 'Niko',
       description: '2222'
     },
   ];

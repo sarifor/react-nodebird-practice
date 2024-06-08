@@ -49,7 +49,7 @@ const AppLayout = ({ children }) => {
       </Menu>
       <Row> {/* 작은 화면에서는 세 Col이 수직으로 쌓이고, 중간 이상 화면에서는 수평으로 배치 */}
         <Col xs={24} md={6}>
-          {isLoggedIn ? <UserProfile /> : <LoginForm setIsLoggedIn={setIsLoggedIn} /> }
+          {isLoggedIn ? <UserProfile setIsLoggedIn={setIsLoggedIn} /> : <LoginForm setIsLoggedIn={setIsLoggedIn} /> }
         </Col>
         <Col xs={24} md={12}>
           {children}

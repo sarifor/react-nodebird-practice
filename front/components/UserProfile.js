@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { SignatureOutlined, HeartOutlined, TeamOutlined } from '@ant-design/icons';
-import { Card } from 'antd';
+import { Card, Button } from 'antd';
 const { Meta } = Card;
 
-const UserProfile = () => {
+const UserProfile = ({ setIsLoggedIn }) => {
+  const onLogout = useCallback(() => {
+    setIsLoggedIn(false);
+  }, []);
+
   return (
     <>
       <Card
@@ -28,6 +32,7 @@ const UserProfile = () => {
           description="This is the description"
         />
       </Card>
+      <Button onClick={onLogout}>Logout</Button>
     </>
   )
 }

@@ -22,8 +22,8 @@ const Signup = () => {
 
 
   const onSubmitForm = useCallback(() => {
-    console.log();
-  }, []);
+    console.log(id);
+  }, [id]);
 
   return (
     <AppLayout>
@@ -47,7 +47,7 @@ const Signup = () => {
           <Input value={id} onChange={onChangeId} />
         </Form.Item>        
         <Form.Item label="Nickname">
-          <Input value={nickname} />
+          <Input />
         </Form.Item>
         <Form.Item label="Gender">
           <Select>
@@ -129,7 +129,7 @@ const Signup = () => {
           <Input.Password />
         </Form.Item>        
         <Form.Item label="Sign-up?">
-          <Button>Yeeeees</Button>
+          <Button htmlType="submit">Yeeeees</Button>
         </Form.Item>
       </Form>
     </AppLayout>

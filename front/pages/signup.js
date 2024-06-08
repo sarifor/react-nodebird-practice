@@ -1,4 +1,5 @@
-import React, {useState, useCallback} from 'react';
+import React, {useCallback} from 'react';
+import useInput from '../hooks/useInput';
 import AppLayout from "../components/AppLayout";
 import {
   Button,
@@ -10,12 +11,9 @@ import {
 } from 'antd';
 
 const Signup = () => {
-  // ID Hooks 세트
-  const [id, setId] = useState('');
-  const onChangeId = useCallback((e) => {
-    setId(e.target.value);
-  }, []);
-
+  // ID Hooks 세트(Custom Hook 사용)
+  const [id, onChangeId] = useInput('');
+  
 
   // Nickname Hooks 세트
 

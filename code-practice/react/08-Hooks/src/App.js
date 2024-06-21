@@ -1,4 +1,4 @@
-import Counter from './08-Hooks/useState/Counter';
+import Counter from './useState/Counter';
 
 function App() {
   return (

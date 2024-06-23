@@ -5,7 +5,7 @@ import Baby from './useEffect/mounted/Baby';
 import Timer from './useEffect/updated/Timer';
 import HideTimer from './useEffect/cleanup/HideTimer';
 import GetResult from './useMemo/getResult';
-
+import Dieter from './useCallback/Dieter';
 /*
   모듈 import할 때 대소문자 주의! 안 그럼 아래와 같은 에러 남:
   Module not found: Error: Cannot find file: 'showMyName.js' does not match the corresponding name on disk: '.\src\useEffect\mounted-or-updated\ShowMyName.js'.
@@ -35,6 +35,9 @@ function App() {
 
       <h2>GetResult - by useMemo</h2>
       <GetResult />
+
+      <h2>Dieter - by useCallback</h2>
+      <Dieter />
     </div>
   );
 }

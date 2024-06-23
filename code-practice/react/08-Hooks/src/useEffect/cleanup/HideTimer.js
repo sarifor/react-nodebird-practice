@@ -35,7 +35,7 @@ const HideTimer = () => {
 
   return (
     <div>
-      {/* <button onClick={() => setToggle(!toggle)}>On/Off</button>
+      {/* <button onClick={ setToggle(!toggle) }>On/Off</button>
       함수 호출을 하면 다음과 같은 에러 뜸: Too many re-renders. React limits the number of renders to prevent an infinite loop.*/}
       <button onClick={ () => setToggle(!toggle) }>Hide/Unhide</button>{/* 함수 참조를 전달해야 무한 루프 에러 안 남 */}
       {toggle && <Timer />}

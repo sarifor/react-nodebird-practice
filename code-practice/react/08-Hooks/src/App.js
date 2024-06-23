@@ -3,7 +3,7 @@ import Info2 from './useState/Info2';
 import ShowMyName from './useEffect/mounted-or-updated/ShowMyName';
 import Baby from './useEffect/mounted/Baby';
 import Timer from './useEffect/updated/Timer';
-import HideTimer from './useEffect/clean-up/HideTimer';
+import HideTimer from './useEffect/cleanup/HideTimer';
 /*
   모듈 import할 때 대소문자 주의! 안 그럼 아래와 같은 에러 남:
   Module not found: Error: Cannot find file: 'showMyName.js' does not match the corresponding name on disk: '.\src\useEffect\mounted-or-updated\ShowMyName.js'.

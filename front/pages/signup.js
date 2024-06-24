@@ -1,30 +1,28 @@
-import React, {useCallback} from 'react';
+import React, { useState, useCallback } from 'react';
 import useInput from '../hooks/useInput';
 import AppLayout from "../components/AppLayout";
 import {
   Button,
-  Cascader,
-  DatePicker,
   Form,
   Input,
-  Select,
 } from 'antd';
 
 const Signup = () => {
-  // ID Hooks 세트(Custom Hook 사용)
-  const [id, onChangeId] = useInput('');
-  
+  // ID Hooks 세트(Custom Hooks 사용)
+  const [id, onChangeId] = useInput('');  
 
-  // Nickname Hooks 세트
-
+  // Nickname Hooks 세트(Custom Hooks 사용)
+  const [nickname, onChangeNickname] = useInput('');
 
   // Password Hooks 세트
+  const [password, setPassword] = useState('');
 
-
+  // 유저 정보를 콘솔에 표시
   const onSubmitForm = useCallback(() => {
-    console.log(id);
-  }, [id]);
+    console.log(id, nickname, password);
+  }, [id, nickname, password]);
 
+  // 리턴
   return (
     <AppLayout>
       <Form onFinish={onSubmitForm}
@@ -47,50 +45,7 @@ const Signup = () => {
           <Input value={id} onChange={onChangeId} />
         </Form.Item>        
         <Form.Item label="Nickname">
-          <Input />
-        </Form.Item>
-        <Form.Item label="Gender">
-          <Select>
-            <Select.Option value="demo">A</Select.Option>
-            <Select.Option value="demo">B</Select.Option>            
-          </Select>
-        </Form.Item>
-        <Form.Item label="Cascader">
-          <Cascader
-            options={[
-              {
-                value: 'Kanto',
-                label: 'Kanto',
-                children: [
-                  {
-                    value: 'Tokyo',
-                    label: 'Tokyo',
-                  },
-                  {
-                    value: 'Chiba',
-                    label: 'Chiba',
-                  },                  
-                ],
-              },
-              {
-                value: 'Kansai',
-                label: 'Kansai',
-                children: [
-                  {
-                    value: 'Osaka',
-                    label: 'Osaka',
-                  },
-                  {
-                    value: 'Kyoto',
-                    label: 'Kyoto',
-                  },                  
-                ],
-              },              
-            ]}
-          />
-        </Form.Item>
-        <Form.Item label="Birthday">
-          <DatePicker />
+          <Input value={nickname} onChange={onChangeNickname} />
         </Form.Item>
         <Form.Item
           name="password"
@@ -103,9 +58,8 @@ const Signup = () => {
           ]}
           hasFeedback
         >
-          <Input.Password />
+          <Input.Password value={password} onChange={ (e) => setPassword(e.target.value) } />
         </Form.Item>
-
         <Form.Item
           name="confirm"
           label="Confirm Password"

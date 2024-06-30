@@ -47,6 +47,11 @@ const LoginForm = ({ setIsLoggedIn }) => {
       <ButtonWrapper> {/* Inline Styling 대신 Styled Component(혹은 useMemo)로 리렌더링 최적화 */}
         <Button type="primary" htmlType="submit" loading={false}>Login</Button>
         <Link href="/signup"><a><Button>Sign Up</Button></a></Link>
+        {/*
+          <Link> 컴포넌트에 href 속성을 넣지 않거나 <a>에 href 속성을 넣으면, 아래와 같은 에러 뜸.
+          Error: Failed prop type: The prop `href` expects a `string` or `object` in `<Link>`, 
+          but got `undefined` instead.
+        */}
       </ButtonWrapper>
     </Form>
   )

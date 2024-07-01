@@ -35,8 +35,8 @@ const items = [
   },    
 ];
 const AppLayout = ({ children }) => {
-  // const isLoggedIn = false;
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 서버 대신 가짜 데이터 사용
+  // 서버 대신 더미 데이터 사용
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Q. setIsLoggedIn은 useCallback으로 감싸지 않아도 되나?
 
   const router = useRouter();
   const current = router.pathname;
@@ -52,6 +52,7 @@ const AppLayout = ({ children }) => {
       </Menu>
       <Row> {/* 작은 화면에서는 세 Col이 수직으로 쌓이고, 중간 이상 화면에서는 수평으로 배치 */}
         <Col xs={24} md={6}>
+          {/* isLoggedIn 상태 변경 함수를 보내줌으로, 자식 컴포넌트에서 부모 컴포넌트의 상태를 변경 가능하게 함 */}
           {isLoggedIn ? <UserProfile setIsLoggedIn={setIsLoggedIn} /> : <LoginForm setIsLoggedIn={setIsLoggedIn} /> }
         </Col>
         <Col xs={24} md={12}>

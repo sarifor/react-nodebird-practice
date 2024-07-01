@@ -7,11 +7,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Menu, Row, Col } from 'antd';
 import { Input } from 'antd';
+import styled from 'styled-components';
 
 import UserProfile from './UserProfile';
 import LoginForm from './LoginForm';
 
-const Search = Input.Search;
+const Search = styled(Input.Search)`
+  vertical-align: middle;
+`;
 
 const items = [
   {

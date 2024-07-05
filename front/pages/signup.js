@@ -19,12 +19,16 @@ const Signup = () => {
 
   // 유저 정보를 콘솔에 표시
   const onSubmitForm = useCallback(() => {
+    // 모든 입력 데이터가 유효성 검사를 통과한 경우에만 유저 정보 표시
+    // 예: Password와 Confirm Password가 일치하는 경우
     console.log(id, nickname, password);
   }, [id, nickname, password]);
 
   // 리턴
   return (
     <AppLayout>
+      {/* onSubmitForm 함수는, 입력한 데이터가 유효성 검사를 통과해야 호출됨: 
+      Trigger after submitting the form and verifying data successfully */}
       <Form onFinish={onSubmitForm}
         labelCol={{
           span: 4,

@@ -1,3 +1,4 @@
+import CheckScreen from './what-is-Hooks/rules/at-the-top-level/succeeded/CheckScreen';
 import Counter from './useState/Counter';
 import Info2 from './useState/Info2';
 import ShowMyName from './useEffect/mounted-or-updated/ShowMyName';
@@ -15,6 +16,9 @@ import Dieter from './useCallback/Dieter';
 function App() {
   return (
     <div>
+      <h2>CheckScreen - Hooks rules: at the top level</h2>
+      <CheckScreen />
+
       <h2>Counter - by useState</h2>
       <Counter />
 

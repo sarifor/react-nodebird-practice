@@ -40,6 +40,8 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_PHOTO:
+      // 불변성을 유지하기 위해 현재 state 객체의 모든 속성을 '새 객체'에 복사하고,
+      // url과 isHaerin 속성을 변경하여 반환
       return {
         ...state,
         url: state.isHaerin ? './neko-chan.png' : './haerin.png',

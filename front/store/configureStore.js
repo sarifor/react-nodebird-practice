@@ -1,10 +1,17 @@
 import { createWrapper } from 'next-redux-wrapper';
-import { createStore } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
 import reducer from '../reducers';
 
 // 스토어 설정
+// - 개발 중에만 데브툴 연결
 const configureStore = () => {
-  const store = createStore(reducer);
+  const middleware = [];
+  const enhancer = process.env.NODE_ENV === 'production'
+  ? compose(applyMiddleware(...middleware))
+  : composeWithDevTools(applyMiddleware(...middleware))
+  const store = createStore(reducer, enhancer);
   return store;
 };
 

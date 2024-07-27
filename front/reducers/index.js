@@ -1,3 +1,6 @@
+// HYDRATE(액션) 가져오기
+import { HYDRATE } from 'next-redux-wrapper';
+
 // state 초깃값
 const initialState = {
   user: {
@@ -27,9 +30,14 @@ export const logoutAction = () => {
 }
 
 // 리듀서
+// - "HYDRATE 액션은 서버에서 페이지를 렌더링하고 클라이언트로 전송할 때 자동으로 발생"
+// - "HYDRATE 액션이 발생하면 서버와 클라이언트 양쪽의 상태가 통합됨"
 const rootReducer = ((state = initialState, action) => {
   switch (action.type) {
-     case 'LOG_IN': {
+    case HYDRATE:
+      console.log(HYDRATE);
+      return { ...state, ...action.payload };
+    case 'LOG_IN': {
       const newState = {
         ...state,
         user: {

@@ -1,21 +1,54 @@
 // state 초깃값
 const initialState = {
-  name: 'Lee Hyein',
-  age: 16,
-  password: 'plasticLove',
+  user: {
+    isLoggedIn: false,
+    user: null,
+    signUpData: {},
+    loginData: {},
+  },
+  post: {
+    mainPosts: [],
+  }
 };
+
+// 로그인 액션 크리에이터
+export const loginAction = (data) => {
+  return {
+    type: 'LOG_IN',
+    data,
+  }
+}
+
+// 로그아웃 액션 크리에이터
+export const logoutAction = () => {
+  return {
+    type: 'LOG_OUT',
+  }
+}
 
 // 리듀서
 const rootReducer = ((state = initialState, action) => {
   switch (action.type) {
-    // 액션 타입이 일치하면
-    case 'CHANGE_NICKNAME': {
-      // 새 state(다음 state) 리턴
+     case 'LOG_IN': {
       const newState = {
         ...state,
-        name: action.data,
+        user: {
+          ...state.user,
+          isLoggedIn: true,
+          user: action.data,
+        }
       };
-      console.log(newState); // {name: 'Fancy girl', age: 16, password: 'plasticLove'}
+      return newState;
+    }
+    case 'LOG_OUT': {
+      const newState = {
+        ...state,
+        user: {
+          ...state.user,
+          isLoggedIn: false,
+          user: null,
+        }
+      };
       return newState;
     }
     default:

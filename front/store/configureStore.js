@@ -1,16 +1,10 @@
-import { createWrapper } from 'next-redux-wrapper'; // 괄호 빼먹지 말기
+import { createWrapper } from 'next-redux-wrapper';
 import { createStore } from 'redux';
 import reducer from '../reducers';
 
-// 스토어
+// 스토어 설정
 const configureStore = () => {
   const store = createStore(reducer);
-  
-  // 액션 디스패치
-  store.dispatch({
-    type: 'CHANGE_NICKNAME',
-    data: 'Fancy girl',
-  })
   return store;
 };
 

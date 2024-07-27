@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { Menu, Row, Col } from 'antd';
 import { Input } from 'antd';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 import UserProfile from './UserProfile';
 import LoginForm from './LoginForm';
@@ -16,9 +17,11 @@ const Search = styled(Input.Search)`
 vertical-align: middle;
 `;
 
+// AppLayout 컴포넌트
 const AppLayout = ({ children }) => {
-  // 로그인 여부 상태: 서버 대신 더미 데이터 사용
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Q. setIsLoggedIn은 useCallback으로 감싸지 않아도 되나?
+  // 로그인 여부 상태
+  // - 상태가 바뀌면 AppLayout 컴포넌트는 알아서 리렌더링됨
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   // hashtag 상태
   const [hashtag, setHashtag] = useState('');
@@ -26,14 +29,19 @@ const AppLayout = ({ children }) => {
   // hashtag 상태 변경
   const handleHashtag = (value) => {
     setHashtag(value);
-    // console.log(hashtag); // 이 경우, 이전 상태를 출력해버림
+
+    // 상태 출력
+    // - 이 경우, 이전 상태를 출력해 버림
+    // console.log(hashtag);
   };
 
-  // hashtag 상태가 변경될 때마다, 최신값을 콘솔에 출력
+  // hashtag 상태 최신값 출력
+  // - hashtag 상태가 변경될 때마다
   useEffect(() => {
     console.log(hashtag);
   }, [hashtag])
   
+  // 현재 경로 가져오기
   const router = useRouter();
   const current = router.pathname;
 
@@ -58,6 +66,8 @@ const AppLayout = ({ children }) => {
 
   return (
     <div>
+      {/* 메뉴 강조 표시 
+      - 현재 경로에 따라 */}
       <Menu selectedKeys={[current]} mode="horizontal">
         {items.map(item => (
           <Menu.Item key={item.key}>
@@ -65,10 +75,17 @@ const AppLayout = ({ children }) => {
           </Menu.Item>
         ))}
       </Menu>
-      <Row> {/* 작은 화면에서는 세 Col이 수직으로 쌓이고, 중간 이상 화면에서는 수평으로 배치 */}
+
+      {/* 반응형 레이아웃
+      - 작은 화면에서는 세 Col이 수직으로 쌓이고, 
+      - 중간 이상 화면에서는 수평으로 배치 */}
+      <Row> 
         <Col xs={24} md={6}>
-          {/* isLoggedIn 상태 변경 함수를 보내줌으로, 자식 컴포넌트에서 부모 컴포넌트의 상태를 변경 가능하게 함 */}
-          {isLoggedIn ? <UserProfile setIsLoggedIn={setIsLoggedIn} /> : <LoginForm setIsLoggedIn={setIsLoggedIn} /> }
+          {/* 로그인 여부에 따라 각각 다른 컴포넌트 보여줌
+          - 로그인 시 프로필 화면
+          - 로그이웃 시 로그인 폼 화면
+          - useState 때와 달리 상태 변경 함수를 보내줄 필요 없음 */}
+          {isLoggedIn ? <UserProfile /> : <LoginForm /> }
         </Col>
         <Col xs={24} md={12}>
           {children}

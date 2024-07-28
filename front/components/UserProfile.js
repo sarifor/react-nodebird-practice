@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { SignatureOutlined, HeartOutlined, TeamOutlined } from '@ant-design/icons';
 import { Card, Button } from 'antd';
 import { useDispatch } from 'react-redux';
-import { logoutAction } from '../reducers';
+import { logoutAction } from '../reducers/user';
 
 const { Meta } = Card;
 

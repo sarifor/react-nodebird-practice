@@ -2,6 +2,8 @@ import { createWrapper } from 'next-redux-wrapper';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+// 리듀서 불러오기
+// - index.js는 디렉터리 이름만으로 불러올 수 있음
 import reducer from '../reducers';
 
 // 스토어 설정

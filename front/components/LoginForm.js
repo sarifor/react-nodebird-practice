@@ -63,7 +63,8 @@ const LoginForm = () => {
       </div>
 
       {/* 버튼 래퍼
-      - 버튼을 감싸는 <div>의 스타일을 Styled Component로 처리하여 리렌더링 최적화 */}
+      - 버튼을 감싸는 <div>의 스타일을 Styled Component로 처리하여 리렌더링 최적화
+      - 단, 서버 사이드 렌더링 설정을 해 줘야 리렌더링 최적화가 적용됨 // Q. 무슨 뜻? */}
       <ButtonWrapper>
         {/* 로그인 버튼 */}
         <Button type="primary" htmlType="submit" loading={false}>Login</Button>

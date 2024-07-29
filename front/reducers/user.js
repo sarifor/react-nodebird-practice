@@ -1,6 +1,6 @@
 export const initialState = {
   isLoggedIn: false,
-  user: null,
+  userInfo: null,
   signUpData: {},
   loginData: {},
 }
@@ -26,7 +26,7 @@ const userReducer = ((state = initialState, action) => {
       const newState = {
         ...state,
         isLoggedIn: true,
-        user: action.data,
+        userInfo: action.data,
       }
       return newState;
     }
@@ -34,7 +34,7 @@ const userReducer = ((state = initialState, action) => {
       const newState = {
         ...state,
         isLoggedIn: false,
-        user: null,
+        userInfo: null,
       }
       return newState;
     }

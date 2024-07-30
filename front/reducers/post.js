@@ -9,7 +9,7 @@ export const initialState = {
     },
     content: 'Hanni is so cute! #NewJeans #Supernatural',
     Images: [
-      { src: "https://static.wikia.nocookie.net/witchers/images/d/d3/Hanni_Bubble_Gum_Concept_Photo_%283%29.jpg/revision/latest/scale-to-width-down/1000?cb=20240426183935" },
+      { src: "https://biz.chosun.com/resizer/PGhn-Zo2K5IXzOLX62L5LccWqio=/530x763/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/QZ6OXTM65GKP4VLFLKP662RXYY.jpg" },
       { src: "https://media.themoviedb.org/t/p/w600_and_h900_bestv2/gTNwJV2JUUFGfveQHwnoZBOqmIh.jpg" },
     ],
     Comments: [
@@ -20,15 +20,20 @@ export const initialState = {
       {
         User: { nickname: 'fan2' },
         content: 'best dancer/singer!',
-      },      
-    ]
+      },
+    ],
+    createdAt: new Date("2023-07-26T12:34:56Z"),
   }],
-  imagePath: [],
+  imagePaths: [],
   postAdded: false,
 }
 
+// 액션 타입
+// - 액션 타입을 상수로 빼 놓으면
+// - 리듀서의 switch 문에서 액션 타입을 쓸 때 오타 나는 것을 막을 수 있음
 const ADD_POST = 'ADD_POST';
 
+// 액션 크리에이터
 export const addPostAction = () => {
   return {
     type: ADD_POST,
@@ -43,9 +48,13 @@ const dummyPost = {
   },
   content: 'Like puppy! #NewJeans',
   Images: [],
-  Comments: []
+  Comments: [],
+  createdAt: new Date("2023-07-26T12:34:56Z"),
 };
 
+// 리듀서
+// - 상태를 불변하게 유지하며 새 요소를 배열의 앞쪽에 추가함으로,
+// - 최신 포스트가 상단에 위치하게 함
 const postReducer = ((state = initialState, action) => {
   switch (action.type) {
     case 'ADD_POST': {

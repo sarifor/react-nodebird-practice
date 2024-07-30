@@ -1,5 +1,8 @@
 // 리액트 관련
 import React, {useState, useCallback} from 'react';
+import PropTypes from 'prop-types';
+
+import PostImages from '../components/PostImages';
 
 // Ant Design 관련
 import { Card, Avatar, Typography, Space } from 'antd';
@@ -52,11 +55,12 @@ const PostCard = ({ post }) => {
   }
 
   // 컴포넌트 렌더링
+  // - 포스트에 이미지 있으면 보여줌
   return (
     <>
       <Card 
         style={{ width: 'auto', margin: 'auto', marginTop: 20 }}
-        // cover = {}
+        cover={post.Images[0] && <PostImages images={post.Images} />}
         actions={actions}
       >
         <Card.Meta
@@ -76,5 +80,19 @@ const PostCard = ({ post }) => {
     </>
   );
 };
+
+// 컴포넌트 props 타입 검사
+// - Q. 타입이 맞지 않는 데이터를 넣어도 아무 경고가 안 뜨는 문제 해결하려면?
+// - 예: id 타입은 숫자여야 하는데, 문자열이 들어와도 경고가 안 뜸
+PostCard.propTypes = {
+  post: PropTypes.shape({
+    id: PropTypes.number,
+    User: PropTypes.object,
+    content: PropTypes.string,
+    Images: PropTypes.arrayOf(PropTypes.object),
+    Comments: PropTypes.arrayOf(PropTypes.object),
+    createdAt: PropTypes.object,
+  }).isRequired,
+}
 
 export default PostCard;

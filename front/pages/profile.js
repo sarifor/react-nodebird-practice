@@ -5,7 +5,12 @@ import OtherLayout from '../components/OtherLayout';
 import NicknameEditForm from '../components/NicknameEditForm';
 import UserList from '../components/UserList';
 
+import { useSelector } from 'react-redux';
+
+
 const Profile = () => {
+  const { isLoggedIn } = useSelector((state) => state.user);
+
   const followingList = [
     {
       nickname: 'Jenny',
@@ -68,6 +73,9 @@ const Profile = () => {
     },             
   ];
 
+  // 컴포넌트 렌더링
+  // - 삼항 연산자: 두 가지 선택이 필요할 때 사용
+  // - CF) 논리 연산자 &&: 특정 조건이 참일 때만 실행하는 경우에 사용
   return (
     <>
       <Head>
@@ -75,10 +83,13 @@ const Profile = () => {
       </Head>
       <AppLayout>
         <OtherLayout>
-          {/* Q. 로그아웃 중일 땐 안 보이게 하는 법? */}
-          <NicknameEditForm />
-          <UserList header="Following List" data={followingList} />
-          <UserList header="Follower List" data={followerList} />
+          {isLoggedIn
+          ? (<>
+              <NicknameEditForm />
+              <UserList header="Following List" data={followingList} />
+              <UserList header="Follower List" data={followerList} />
+            </>)
+          : (<div>Please log in!</div>)}
         </OtherLayout>
       </AppLayout>
     </>

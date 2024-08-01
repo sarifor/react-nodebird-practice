@@ -64,10 +64,19 @@ const AppLayout = ({ children }) => {
     },    
   ];
 
+  /* 컴포넌트 렌더링
+    1. 메뉴 강조 표시
+      - 현재 경로에 따라
+    2. 반응형 레이아웃
+      - 작은 화면에서는 세 Col이 수직으로 쌓이고, 
+      - 중간 이상 화면에서는 수평으로 배치
+    3. 로그인 여부에 따라 각각 다른 컴포넌트 보여줌
+      - 로그인 시 프로필 화면
+      - 로그아웃 시 로그인 폼 화면
+      - useState 때와 달리 상태 변경 함수를 보내줄 필요 없음
+  */
   return (
     <div>
-      {/* 메뉴 강조 표시 
-      - 현재 경로에 따라 */}
       <Menu selectedKeys={[current]} mode="horizontal">
         {items.map(item => (
           <Menu.Item key={item.key}>
@@ -76,15 +85,8 @@ const AppLayout = ({ children }) => {
         ))}
       </Menu>
 
-      {/* 반응형 레이아웃
-      - 작은 화면에서는 세 Col이 수직으로 쌓이고, 
-      - 중간 이상 화면에서는 수평으로 배치 */}
       <Row> 
         <Col xs={24} md={6}>
-          {/* 로그인 여부에 따라 각각 다른 컴포넌트 보여줌
-          - 로그인 시 프로필 화면
-          - 로그이웃 시 로그인 폼 화면
-          - useState 때와 달리 상태 변경 함수를 보내줄 필요 없음 */}
           {isLoggedIn ? <UserProfile /> : <LoginForm /> }
         </Col>
         <Col xs={24} md={12}>

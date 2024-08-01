@@ -7,7 +7,7 @@ const UserList = ({ header, data }) => {
   return (
     <>
       <List
-        grid={{ // Q. 객체 부분을 최적화시키려면?
+        grid={{
           gutter: 10,
           xs: 1,
           sm: 2,
@@ -32,8 +32,5 @@ const UserList = ({ header, data }) => {
     </>
   )
 }
-
-// UserList 컴포넌트의 props 검증
-//
 
 export default UserList;

@@ -13,7 +13,7 @@ const { Text } = Typography;
 import { useSelector } from 'react-redux';
 
 // PostCard 컴포넌트
-// - Q. 왜 { post } 형태로 받아와야 하지?
+// - 비구조화 할당 문법으로 props의 내부 데이터인 post 바로 사용
 const PostCard = ({ post }) => {
   // 유저 정보
   const userInfo = useSelector((state) => state.user.userInfo);
@@ -82,11 +82,9 @@ const PostCard = ({ post }) => {
 };
 
 // 컴포넌트 props 타입 검사
-// - Q. 타입이 맞지 않는 데이터를 넣어도 아무 경고가 안 뜨는 문제 해결하려면?
-// - 예: id 타입은 숫자여야 하는데, 문자열이 들어와도 경고가 안 뜸
 PostCard.propTypes = {
   post: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     User: PropTypes.object,
     content: PropTypes.string,
     Images: PropTypes.arrayOf(PropTypes.object),

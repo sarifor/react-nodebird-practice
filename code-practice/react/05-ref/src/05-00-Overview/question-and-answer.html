@@ -1,0 +1,28 @@
+<!--
+  # 일반 HTML의 특정 DOM 요소 명명법
+  - id로 요소 특정
+-->
+<html>
+  <head>
+    <title>Practice</title>
+  </head>
+  <body>
+    <!--
+      예시: 질문 클릭 시 그에 대한 답으로 이동
+    -->
+    <div>
+      <div id='question'>What is today's date?</div>
+      <div id='answer' style='margin-top: 1000px'>Today is...</div>
+    </div>
+
+    <script>
+      const question = document.getElementById('question');
+
+      question.addEventListener('click', () => {
+        const answer = document.getElementById('answer');
+        answer.textContent = Date();
+        answer.scrollIntoView();
+      })
+    </script>
+  </body>
+</html>

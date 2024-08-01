@@ -8,6 +8,8 @@ import HideTimer from './useEffect/cleanup/HideTimer';
 import GetResult from './useMemo/getResult';
 import Dieter from './useCallback/Dieter';
 import CheckScreen2 from './Custom-Hooks/CheckScreen2';
+import QuestionAndAnswer from './useRef/QuestionAndAnswer';
+
 /*
   모듈 import할 때 대소문자 주의! 안 그럼 아래와 같은 에러 남:
   Module not found: Error: Cannot find file: 'showMyName.js' does not match the corresponding name on disk: '.\src\useEffect\mounted-or-updated\ShowMyName.js'.
@@ -46,6 +48,9 @@ function App() {
 
       <h2>CheckScreen2 - Custom Hooks rules: "can be used not at top level"</h2>
       <CheckScreen2 />
+
+      <h2>QuestionAndAnswer - by useRef</h2>
+      <QuestionAndAnswer />
     </div>
   );
 }

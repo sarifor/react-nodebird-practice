@@ -7,7 +7,7 @@ const { TextArea } = Input;
 
 // 리덕스 관련
 import { useSelector, useDispatch } from 'react-redux';
-import { addPostAction } from '../reducers/post';
+import { addPostAction } from '../../reducers/post';
 
 // PostForm 컴포넌트
 const PostForm = () => {

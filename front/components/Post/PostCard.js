@@ -2,9 +2,9 @@
 import React, {useState, useCallback} from 'react';
 import PropTypes from 'prop-types';
 
-import PostImages from '../components/PostImages';
-import CommentForm from './CommentForm';
-import CommentList from './CommentList';
+import { PostImages } from './';
+import CommentForm from '../CommentForm';
+import CommentList from '../CommentList';
 
 // Ant Design 관련
 import { Card, Typography, Space } from 'antd';

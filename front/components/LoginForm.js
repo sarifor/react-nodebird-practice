@@ -5,8 +5,10 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { loginAction } from '../reducers/user';
 
-const ButtonWrapper = styled.div`
-  margin-top: 10px;
+// 스타일드 컴포넌트
+// - 다른 컴포넌트에서도 자주 쓰이는 스타일이라 export
+export const StyledWrapper = styled.div`
+  margin-top: 30px;
 `;
 
 // LoginForm 컴포넌트
@@ -65,7 +67,7 @@ const LoginForm = () => {
       {/* 버튼 래퍼
       - 버튼을 감싸는 <div>의 스타일을 Styled Component로 처리하여 리렌더링 최적화
       - 단, 서버 사이드 렌더링 설정을 해 줘야 리렌더링 최적화가 적용됨 // Q. 무슨 뜻? */}
-      <ButtonWrapper>
+      <StyledWrapper>
         {/* 로그인 버튼 */}
         <Button type="primary" htmlType="submit" loading={false}>Login</Button>
         {/* 회원가입 링크
@@ -73,7 +75,7 @@ const LoginForm = () => {
         - Error: Failed prop type: The prop `href` expects a `string` or `object` in `<Link>`, 
         - but got `undefined` instead. */}
         <Link href="/signup"><a><Button>Sign Up</Button></a></Link>
-      </ButtonWrapper>
+      </StyledWrapper>
     </Form>
   )
 }

@@ -3,9 +3,11 @@ import React, {useState, useCallback} from 'react';
 import PropTypes from 'prop-types';
 
 import PostImages from '../components/PostImages';
+import CommentForm from './CommentForm';
+import CommentList from './CommentList';
 
 // Ant Design 관련
-import { Card, Avatar, Typography, Space } from 'antd';
+import { Card, Typography, Space } from 'antd';
 import { RetweetOutlined, HeartOutlined, HeartTwoTone, CommentOutlined, ShareAltOutlined } from '@ant-design/icons';
 const { Text } = Typography;
 
@@ -56,6 +58,7 @@ const PostCard = ({ post }) => {
 
   // 컴포넌트 렌더링
   // - 포스트에 이미지 있으면 보여줌
+  // - Q. 작성자, 글, 사진 순으로 오게 하려면?
   return (
     <>
       <Card 
@@ -64,18 +67,20 @@ const PostCard = ({ post }) => {
         actions={actions}
       >
         <Card.Meta
-          avatar={<Avatar src="" />}
           title={
             <Space direction="vertical">
               <Text strong></Text>
               <Text type="secondary">date</Text>
             </Space>
           }
-          description={post.content}
+          description={post.content}        
         />
       </Card>
       {commentOpened && (
-        <div>Comment</div>
+        <div>
+          <CommentForm post={post} />
+          {post.Comments.length > 0 && <CommentList comments={post.Comments} />}
+        </div>
       )}
     </>
   );

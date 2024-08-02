@@ -9,8 +9,9 @@ export const initialState = {
     },
     content: 'Hanni is so cute! #NewJeans #Supernatural',
     Images: [
-      { src: "https://biz.chosun.com/resizer/PGhn-Zo2K5IXzOLX62L5LccWqio=/530x763/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/QZ6OXTM65GKP4VLFLKP662RXYY.jpg" },
-      { src: "https://media.themoviedb.org/t/p/w600_and_h900_bestv2/gTNwJV2JUUFGfveQHwnoZBOqmIh.jpg" },
+      { src: "https://biz.chosun.com/resizer/PGhn-Zo2K5IXzOLX62L5LccWqio=/530x763/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/QZ6OXTM65GKP4VLFLKP662RXYY.jpg", alt: "cute"},
+      { src: "https://media.themoviedb.org/t/p/w600_and_h900_bestv2/gTNwJV2JUUFGfveQHwnoZBOqmIh.jpg", alt: "kawaii" },
+      { src: "https://cdn.emetro.co.kr/data2/content/image/2024/08/02/.cache/512/20240802500007.jpg", alt: "NewJeans" },
     ],
     Comments: [
       {
@@ -48,7 +49,16 @@ const dummyPost = {
   },
   content: 'Like puppy! #NewJeans',
   Images: [],
-  Comments: [],
+  Comments: [
+    {
+      User: { nickname: 'fan3' },
+      content: 'Gogo~!!',
+    },
+    {
+      User: { nickname: 'fan4' },
+      content: 'Wan-wan!',
+    },    
+  ],
   createdAt: new Date("2023-07-26T12:34:56Z"),
 };
 

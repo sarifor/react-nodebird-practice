@@ -6,6 +6,8 @@ import { PostImages } from './';
 import CommentForm from '../CommentForm';
 import CommentList from '../CommentList';
 
+import styled from 'styled-components';
+
 // Ant Design 관련
 import { Card, Typography, Space } from 'antd';
 import { RetweetOutlined, HeartOutlined, HeartTwoTone, CommentOutlined, ShareAltOutlined } from '@ant-design/icons';
@@ -13,6 +15,17 @@ const { Text } = Typography;
 
 // 리덕스 관련
 import { useSelector } from 'react-redux';
+
+// 댓글란을 감싸는 스타일드 컴포넌트
+// - 안쪽 <div>의 스타일도 지정해줌으로,
+// - 변수명을 또 짓는 수고 줄어듦. 스타일드 컴포넌트 최소화됨
+const Wrapper = styled.div`
+  margin-top: 20px;
+
+  & > div {
+    margin-top: 20px;
+  }
+`;
 
 // PostCard 컴포넌트
 // - 비구조화 할당 문법으로 props의 내부 데이터인 post 바로 사용
@@ -77,10 +90,12 @@ const PostCard = ({ post }) => {
         />
       </Card>
       {commentOpened && (
-        <div>
+        <Wrapper>
           <CommentForm post={post} />
-          {post.Comments.length > 0 && <CommentList comments={post.Comments} />}
-        </div>
+          <div>
+            {post.Comments.length > 0 && <CommentList comments={post.Comments} />}
+          </div>
+        </Wrapper>
       )}
     </>
   );

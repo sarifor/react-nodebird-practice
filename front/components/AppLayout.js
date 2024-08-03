@@ -7,14 +7,20 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Menu, Row, Col } from 'antd';
 import { Input } from 'antd';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import UserProfile from './UserProfile';
 import LoginForm from './LoginForm';
 
+const Global = createGlobalStyle`
+  .textColorGreen {
+    color: green;
+  }
+`;
+
 const Search = styled(Input.Search)`
-vertical-align: middle;
+  vertical-align: middle;
 `;
 
 // AppLayout 컴포넌트
@@ -77,6 +83,7 @@ const AppLayout = ({ children }) => {
   */
   return (
     <div>
+      <Global />
       <Menu selectedKeys={[current]} mode="horizontal">
         {items.map(item => (
           <Menu.Item key={item.key}>
@@ -93,9 +100,11 @@ const AppLayout = ({ children }) => {
           {children}
         </Col>
         <Col xs={24} md={6}>
-          <a href="https://github.com/sarifor" target="_blank" rel="noreferrer noopener">Sarifor!</a>
+          <a className="textColorGreen" href="https://github.com/sarifor" target="_blank" rel="noreferrer noopener">Sarifor!</a>
         </Col>
       </Row>
+
+      <footer className="textColorGreen">Copyright free</footer>
     </div>
   )
 };

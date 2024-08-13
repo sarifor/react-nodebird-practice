@@ -42,12 +42,12 @@ const PostCard = ({ post }) => {
 
   // Liked 상태 토글 함수
   // - 상태 변경 함수에 함수 인자를 전달하면, 이전 상태를 기반으로 다음 상태를 업데이트(최신값 보장)
-  const onClickHeartToggle = useCallback(() => {
+  const handleHeartToggle = useCallback(() => {
     setLiked((prev) => !prev);
   }, [liked]);
 
   // commentOepend 상태 토글 함수
-  const onClickCommentToggle = useCallback(() => {
+  const handleCommentToggle = useCallback(() => {
     setCommentOpened((prev) => !prev);
   }, [commentOpened]);
 
@@ -56,9 +56,9 @@ const PostCard = ({ post }) => {
   const actions = [
     <RetweetOutlined key="retweet" />,
     liked
-      ? <HeartTwoTone key="hearttwo" twoToneColor="pink" onClick={onClickHeartToggle} />
-      : <HeartOutlined key="heartout" onClick={onClickHeartToggle} />,
-    <CommentOutlined key="comment" onClick={onClickCommentToggle} />,
+      ? <HeartTwoTone key="hearttwo" twoToneColor="pink" onClick={handleHeartToggle} />
+      : <HeartOutlined key="heartout" onClick={handleHeartToggle} />,
+    <CommentOutlined key="comment" onClick={handleCommentToggle} />,
     <ShareAltOutlined key="sharealt" />
   ];
 

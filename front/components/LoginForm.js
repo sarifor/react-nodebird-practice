@@ -18,21 +18,21 @@ const LoginForm = () => {
 
   // ID 상태와 변경 함수
   const [id, setId] = useState('');
-  const onChangeId = useCallback((e) => {
+  const handleIdChange = useCallback((e) => {
     setId(e.target.value);
   }, []);
 
   // Password 상태와 변경 함수
   // - 컴포넌트에 props로 넘겨주는 함수는 useCallback 꼭 사용
   const [password, setPassword] = useState('');
-  const onChangePassword = useCallback((e) => {
+  const handlePasswordChange = useCallback((e) => {
     setPassword(e.target.value);
   }, []);
 
   // 폼 제출 함수
   // - 컴포넌트에 넣는 거라 useCallback으로 감쌈
   // - e.preventDefault() 생략함. onFinish에 이미 preventDefault 적용돼 있음
-  const onSubmitForm = useCallback(() => { 
+  const handleFormSubmit = useCallback(() => { 
     // 아이디, 비밀번호 출력
     console.log(id, password);
 
@@ -43,12 +43,12 @@ const LoginForm = () => {
 
   return (
     // 폼
-    <Form onFinish={onSubmitForm}>
+    <Form onFinish={handleFormSubmit}>
       {/* 아이디 입력란 */}
       <div>
         <label htmlFor="user-id">ID</label>
         <br />
-        <Input name="user-id" value={id} onChange={onChangeId} required />
+        <Input name="user-id" value={id} onChange={handleIdChange} required />
       </div>
       
       {/* 비밀번호 입력란 */}
@@ -59,7 +59,7 @@ const LoginForm = () => {
           name="user-password" 
           type="password"
           value={password}
-          onChange={onChangePassword}
+          onChange={handlePasswordChange}
           required
         />
       </div>

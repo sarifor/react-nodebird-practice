@@ -33,7 +33,7 @@ const AppLayout = ({ children }) => {
   const [hashtag, setHashtag] = useState('');
 
   // hashtag 상태 변경
-  const handleHashtag = (value) => {
+  const handleHashtagSearch = (value) => {
     setHashtag(value);
 
     // 상태 출력
@@ -65,7 +65,7 @@ const AppLayout = ({ children }) => {
       key: 'signup',
     },  
     {
-      label: <Search placeholder="input hashtag" enterButton="Search" onSearch={handleHashtag} />, // onSearch: Ant Design Input.Search의 property
+      label: <Search placeholder="input hashtag" enterButton="Search" onSearch={handleHashtagSearch} />, // onSearch: Ant Design Input.Search의 property
       key: 'search',
     },    
   ];

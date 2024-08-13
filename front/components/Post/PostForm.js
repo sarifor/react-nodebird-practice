@@ -17,19 +17,19 @@ const PostForm = () => {
   const [ text, setText ] = useState('');
   const imageInput = useRef();
 
-  const onChangeText = useCallback((e) => {
+  const handleTextChange = useCallback((e) => {
     setText(e.target.value);
   }, [text]);
 
   // 폼 데이터 제출 함수
   // - text가 업데이트될 때마다 함수를 새로 생성하여, 항상 text의 최신 값을 사용
-  const onSubmitPostForm = useCallback(() => {
+  const handlePostFormSubmit = useCallback(() => {
     console.log(text);
     dispatch(addPostAction());
     setText('');
   }, [text]);
 
-  const onClickImageUpload = useCallback(() => {
+  const handleImageUpload = useCallback(() => {
     imageInput.current.click();
   }, [imageInput.current]);
 
@@ -42,19 +42,19 @@ const PostForm = () => {
         - 업로드된 이미지 표시(구현 중) */}
       <Form 
         style={{ margin: 'auto', marginTop: 20 }}
-        onFinish={onSubmitPostForm}
+        onFinish={handlePostFormSubmit}
       >
         <TextArea
           value={text}
           placeholder="What's happening?"
           rows={4}
           maxLength={140}
-          onChange={onChangeText}
+          onChange={handleTextChange}
         />
         
         <div style={{ marginTop: 10, textAlign: 'right' }}>
           <input type="file" multiple hidden ref={imageInput} />
-          <Button onClick={onClickImageUpload}>Upload Image</Button>
+          <Button onClick={handleImageUpload}>Upload Image</Button>
           <Button type="primary" htmlType="submit">Post</Button>
         </div>
         

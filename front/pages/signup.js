@@ -15,10 +15,10 @@ const Signup = () => {
   const { isLoggedIn } = useSelector((state) => state.user);
 
   // ID Hooks 세트(Custom Hooks 사용)
-  const [id, onChangeId] = useInput('');  
+  const [id, handleIdChange] = useInput('');  
 
   // Nickname Hooks 세트(Custom Hooks 사용)
-  const [nickname, onChangeNickname] = useInput('');
+  const [nickname, handleNicknameChange] = useInput('');
 
   // Password Hooks 세트
   const [password, setPassword] = useState('');
@@ -26,7 +26,7 @@ const Signup = () => {
   // 유저 정보를 콘솔에 표시
   // - 모든 입력 데이터가 유효성 검사를 통과한 경우에만 유저 정보 표시
   // - 예: Password와 Confirm Password가 일치하는 경우  
-  const onSubmitForm = useCallback(() => {
+  const handleFormSubmit = useCallback(() => {
     console.log(id, nickname, password);
   }, [id, nickname, password]);
 
@@ -37,7 +37,7 @@ const Signup = () => {
     <AppLayout>
       {!isLoggedIn
       ? (<>
-          <Form onFinish={onSubmitForm}
+          <Form onFinish={handleFormSubmit}
             labelCol={{
               span: 4,
             }}
@@ -54,10 +54,10 @@ const Signup = () => {
             }}
           >
             <Form.Item label="ID">
-              <Input value={id} onChange={onChangeId} />
+              <Input value={id} onChange={handleIdChange} />
             </Form.Item>        
             <Form.Item label="Nickname">
-              <Input value={nickname} onChange={onChangeNickname} />
+              <Input value={nickname} onChange={handleNicknameChange} />
             </Form.Item>
             <Form.Item
               name="password"

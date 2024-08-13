@@ -11,7 +11,7 @@ const UserProfile = () => {
   // 디스패치 함수 가져오기
   const dispatch = useDispatch();
 
-  const onLogout = useCallback(() => {
+  const handleLogout = useCallback(() => {
     // 리덕스 스토어에 '로그아웃 액션' 디스패치
     // - 같이 보낼 데이터는 없음
     dispatch(logoutAction());
@@ -51,7 +51,7 @@ const UserProfile = () => {
       </Card>
 
       {/* 로그아웃 버튼 */}
-      <Button onClick={onLogout}>Logout</Button>
+      <Button onClick={handleLogout}>Logout</Button>
     </>
   )
 }

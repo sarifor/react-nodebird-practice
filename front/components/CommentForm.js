@@ -9,27 +9,25 @@ import { useSelector } from 'react-redux';
 
 // CommentForm 컴포넌트
 // - 포스트 작성자 아이디, 댓글 작성자 아이디, 댓글 데이터를 서버에 송신
-// - Q. 이벤트 핸들러의 명명법?
-// - Q. 이벤트 핸들러와 콜백 함수의 차이?
 const CommentForm = ({ post }) => {
   const postId = post?.id;
   const id = useSelector(state => state.user.userInfo?.id)
 
   const [ comment, setComment ] = useState("");
 
-  const onChangeComment = (e) => {
+  const handleCommentChange = (e) => {
     setComment(e.target.value);
   }
 
-  const onSubmitForm = useCallback(() => {
+  const handleFormSubmit = useCallback(() => {
     console.log(id, postId, comment);
   }, [comment]);
 
   return (
     <div style={{ marginTop: 10, textAlign: 'right' }}>
-      <Form onFinish={onSubmitForm}>
+      <Form onFinish={handleFormSubmit}>
         <Item>
-          <TextArea rows={4} onChange={onChangeComment} value={comment} />
+          <TextArea rows={4} onChange={handleCommentChange} value={comment} />
         </Item>
         <Item>
           <Button htmlType="submit" type="primary">

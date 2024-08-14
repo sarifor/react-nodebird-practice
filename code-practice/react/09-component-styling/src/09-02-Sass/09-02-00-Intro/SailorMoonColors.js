@@ -7,7 +7,7 @@ const SailorMoonColors = () => {
       <div className="member blue">Mercury!</div>
       <div className="member red">Mars!</div>
       <div className="member green">Jupiter!</div>
-      <div className="member orange">Vinus!</div>
+      <div className="member orange">Venus!</div>
     </div>
   )
 }

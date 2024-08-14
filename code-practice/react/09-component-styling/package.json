@@ -13,8 +13,9 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4",
-    "styled-components": "^5.2.1"
+    "sass": "^1.77.8",
+    "styled-components": "^5.2.1",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",

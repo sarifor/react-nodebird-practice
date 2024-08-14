@@ -1,0 +1,41 @@
+// 색상 변수
+$gold: #fcc419;
+$blue: #339af0;
+$red: #fa5252;
+$green: #40c057;
+$orange: #fb7e14;
+
+.team {
+  display: flex;
+  justify-content: space-between;
+  width: auto;
+  background-color: black;
+  padding: 10px;
+
+  // 일반 CSS의 .team .member
+  .member {
+    width: 100px;
+    height: 100px;
+
+    // .member 클래스와 .gold 클래스가 함께 사용되었을 때
+    &.gold {
+      background: $gold;
+    }
+    
+    &.blue {
+      background: $blue;
+    }
+    
+    &.red {
+      background: $red;
+    }
+    
+    &.green {
+      background: $green;
+    }
+    
+    &.orange {
+      background: $orange;
+    }
+  }
+}

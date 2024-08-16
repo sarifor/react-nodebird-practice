@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { PostImages } from './';
 import CommentForm from '../CommentForm';
 import CommentList from '../CommentList';
+import PostCardContent from './PostCardContent';
 
 import styled from 'styled-components';
 
@@ -86,7 +87,7 @@ const PostCard = ({ post }) => {
               <Text type="secondary">date</Text>
             </Space>
           }
-          description={post.content}        
+          description={<PostCardContent postData={post.content} />}
         />
       </Card>
       {commentOpened && (

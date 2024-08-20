@@ -7,8 +7,8 @@ export const initialState = {
   loginData: {},
 }
 
-// 로그인 액션 크리에이터
-// - 액션 3개: 로그인 요청, 로그인 요청 성공, 로그인 요청 실패
+// 로그인 비동기 액션 크리에이터
+// - 구성 액션: 로그인 요청, 로그인 요청 성공, 로그인 요청 실패
 // - redux-thunk로 비동기 호출 처리
 export const loginAction = (data) => {
   return (dispatch, getState) => {

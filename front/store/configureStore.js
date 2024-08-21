@@ -12,11 +12,19 @@ import reducer from '../reducers';
 
 // 로깅 미들웨어
 // - 액션 일어날 때마다 액션명을 콘솔에 출력하기
-// - Q. 삼단 고차함수?
-const loggerMiddleware = ({ dispatch, getState }) => (next) => (action) => {
-  console.log(action);
-  return next(action);
-};
+// - 삼단 고차함수 구조
+// - 미들웨어는 액션과 리듀서 사이에 위치하여, 
+//   중간에 액션을 가로채 처리하고, 
+//   next(다음 미들웨어 혹은 리듀서)로 액션을 넘김
+// - Q. return next(action)과 next(action)의 차이?
+function loggerMiddleware() {
+  return function(next) {
+    return function(action) {
+      console.log(action);
+      return next(action);
+    }
+  }
+}
 
 // 스토어 설정
 // - 개발 중에만 데브툴 연결

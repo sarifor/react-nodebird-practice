@@ -27,7 +27,6 @@ export const loginAction = (data) => {
   }
 }
 
-
 export const loginRequestAction = (data) => {
   return {
     type: 'LOG_IN_REQUEST',

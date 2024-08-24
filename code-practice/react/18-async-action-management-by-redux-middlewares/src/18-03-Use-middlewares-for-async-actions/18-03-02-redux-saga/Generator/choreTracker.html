@@ -1,0 +1,38 @@
+<html>
+<body>
+  <script>
+    // 집안일 추적기
+    // - 청소기 돌리기랑 장보기 외에 다른 집안일 하려 하면 경고 띄움
+    function* choreTracker() {
+      console.log('Chore tracker is now working...');
+      
+      let currentChore = null;
+      
+      while(true) {
+        const chore = yield;
+
+        currentChore = chore.name;
+
+        if (chore.name === 'Clean rooms') {
+          console.log('Current chore: ', currentChore);
+          console.log("Let's get vacuum cleaner!");
+        } else if (chore.name === 'Go shopping') {
+          console.log('Current chore: ', currentChore);          
+          console.log("Let's go to AEON!");
+        } else {
+          console.log('Current chore: ', currentChore);
+          alert("Please do different chore!");
+        }
+      }
+    }
+
+    const ct = choreTracker();
+
+    ct.next(); // Chore tracker is now working...
+    ct.next({ name: 'Clean rooms' }); // Let's get vacuum cleaner!
+    ct.next({ name: 'Dusting' }); // Please do different chore!
+    ct.next({ name: 'Washing dishes' }); // Please do different chore!
+    ct.next({ name: 'Go shopping' }); // Let's go to AEON!
+  </script>
+</body>
+</html>

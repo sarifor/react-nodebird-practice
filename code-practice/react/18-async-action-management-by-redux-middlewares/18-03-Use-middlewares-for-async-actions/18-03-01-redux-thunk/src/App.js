@@ -1,4 +1,4 @@
-import AddNumberIn3seconds from "./18-03-Use-middlewares-for-async-actions/18-03-01-redux-thunk/What-is-thunk/AddNumberIn3seconds";
+import AddNumberIn3seconds from "./What-is-thunk/AddNumberIn3seconds";
 
 function App() {
   return (

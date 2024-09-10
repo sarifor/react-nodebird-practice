@@ -29,18 +29,6 @@ export const initialState = {
   postAdded: false,
 }
 
-// 액션 타입
-// - 액션 타입을 상수로 빼 놓으면
-// - 리듀서의 switch 문에서 액션 타입을 쓸 때 오타 나는 것을 막을 수 있음
-const ADD_POST = 'ADD_POST';
-
-// 액션 크리에이터
-export const addPostAction = () => {
-  return {
-    type: ADD_POST,
-  }
-}
-
 const dummyPost = {
   id: "hij",
   User: {
@@ -67,7 +55,8 @@ const dummyPost = {
 // - 최신 포스트가 상단에 위치하게 함
 const postReducer = ((state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_POST': {
+    case 'ADD_POST_SUCCESS': {
+      console.log("Original post: ", action.data);
       const newState = {
         ...state,
         mainPosts: [
@@ -75,6 +64,12 @@ const postReducer = ((state = initialState, action) => {
           ...state.mainPosts,
         ],
         postAdded: true,
+      }
+      return newState;
+    }
+    case 'ADD_POST_FAILURE': {
+      const newState = {
+        ...state,
       }
       return newState;
     }

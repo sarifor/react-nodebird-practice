@@ -23,9 +23,14 @@ const PostForm = () => {
 
   // 폼 데이터 제출 함수
   // - text가 업데이트될 때마다 함수를 새로 생성하여, 항상 text의 최신 값을 사용
+  // - 데이터는 중괄호로 감싸 객체 형태로 전달하기
+  // - 실제로는 reducer에 마련해둔 더미 데이터가 업로드됨 
   const handlePostFormSubmit = useCallback(() => {
     console.log(text);
-    dispatch(addPostAction());
+    dispatch({
+      type: 'ADD_POST_REQUEST',
+      data: { text },
+    });
     setText('');
   }, [text]);
 

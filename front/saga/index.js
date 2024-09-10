@@ -2,8 +2,9 @@ import { all, fork, call, takeLatest, put } from 'redux-saga/effects';
 import axios from 'axios';
 
 // 로그인 관련 와처 함수, 사가 함수, API 호출 함수
+// - 와처 함수: 이벤트 리스너 같은 역할
 // - LOG_IN_FAILURE 액션을 테스트해보려면? 존재하지 않는 URL에 요청 보내게 하기
-// - call: 동기 함수 호출. 함수가 완료될 때까지 기다림
+// - call: 동기 함수 호출. 함수가 완료될 때까지 기다림. then()과 비슷
 // - put: 리덕스 스토어에 액션을 디스패치
 // - yield: 비동기 작업이 완료될 때까지 기다림. 테스트에 편함  // Q. 이해 재시도
 // - takeLatest는 가장 마지막에 발생한 액션만 처리, take는 발생한 액션을 한 번만 감지

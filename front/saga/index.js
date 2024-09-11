@@ -1,19 +1,19 @@
-import { all, fork, call, takeLatest, put } from 'redux-saga/effects';
+import { all, fork, call, take, takeEvery, put, throttle, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
 // 로그인 관련 와처 함수, 사가 함수, API 호출 함수
-// - 와처 함수: 이벤트 리스너 같은 역할
-// - LOG_IN_FAILURE 액션을 테스트해보려면? 존재하지 않는 URL에 요청 보내게 하기
-// - call: 동기 함수 호출. 함수가 완료될 때까지 기다림. then()과 비슷
-// - put: 리덕스 스토어에 액션을 디스패치
-// - yield: 비동기 작업이 완료될 때까지 기다림. 테스트에 편함  // Q. 이해 재시도
-// - takeLatest는 가장 마지막에 발생한 액션만 처리, take는 발생한 액션을 한 번만 감지
+// - 3초 대기 후에 LogInAPI 호출 실행
+// - take: 액션을 한 번만 감지. 동일 액션을 다시 감지하려면 while(true) 문이 필요(동기적)
+// - 사가에서 비동기 작업은 yield로 제어해야 함
+//   때문에 watchLogin 함수에서 logIn 함수를 호출할 때 그냥 'logIn(action)'이라고 하면 안 됨
+// - delay: block execution for ms milliseconds
 function logInAPI(data) {
   return axios.post('/api/login', data);
 }
 
 function* logIn(action) {
   try {
+    yield delay(3000);
     const result = yield call(logInAPI, action.data)
     yield put({
       type: 'LOG_IN_SUCCESS',
@@ -28,10 +28,15 @@ function* logIn(action) {
 }
 
 function* watchLogIn() {
-  yield takeLatest('LOG_IN_REQUEST', logIn);
+  while (true) {
+    const action = yield take('LOG_IN_REQUEST');
+    yield call(logIn, action);
+  }
 }
 
 // 로그아웃 관련 와처 함수, 사가 함수, API 호출 함수
+// - takeEvery: take와 while(true) 조합 대신 사용. 루프 없이 동일 액션 반복적 처리(비동기적)
+// - takeEvery의 동작은 Logout 버튼을 누르면 액션이 두 번 디스패치되게 하는 방법으로 확인
 function logOutAPI() {
   return axios.post('/api/logout');
 }
@@ -52,10 +57,13 @@ function* logOut() {
 }
 
 function* watchLogOut() {
-  yield takeLatest('LOG_OUT_REQUEST', logOut);
+  yield takeEvery('LOG_OUT_REQUEST', logOut);
 }
 
 // 포스트 업로드 관련 와처 함수, 사가 함수, API 호출 함수
+// - 포스트 업로드는 3초당 최대 1번으로 제한
+// - throttle: ignore incoming actions for a given period of time while processing a task
+// - CF) debounce: prevent calling saga until the actions are settled off
 function addPostAPI(data) {
   return axios.post('/api/addpost', data);
 }
@@ -76,12 +84,10 @@ function* addPost(action) {
 }
 
 function* watchAddPost() {
-  yield takeLatest('ADD_POST_REQUEST', addPost);
+  yield throttle(3000, 'ADD_POST_REQUEST', addPost);
 }
 
 // 루트 사가
-// - all: 여러 사가 병렬 실행
-// - fork: 비동기 함수 실행. 함수 완료를 기다리지 않고 즉시 다음 작업 실행
 export default function* rootSaga() {
   yield all([
     fork(watchLogIn),

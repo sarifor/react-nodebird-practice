@@ -29,6 +29,9 @@ const AppLayout = ({ children }) => {
   // - 상태가 바뀌면 AppLayout 컴포넌트는 알아서 리렌더링됨
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
+  // 로딩 여부 상태
+  const isLoading = useSelector((state) => state.user.isLoading);
+
   // hashtag 상태
   const [hashtag, setHashtag] = useState('');
 
@@ -95,6 +98,7 @@ const AppLayout = ({ children }) => {
       <Row> 
         <Col xs={24} md={6}>
           {isLoggedIn ? <UserProfile /> : <LoginForm /> }
+          {isLoading ? "Loading..." : ""}
         </Col>
         <Col xs={24} md={12}>
           {children}

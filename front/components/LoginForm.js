@@ -4,6 +4,8 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
+import { LOG_IN_REQUEST } from '../reducers/user';
+
 // 스타일드 컴포넌트
 // - 다른 컴포넌트에서도 자주 쓰이는 스타일이라 export
 export const StyledWrapper = styled.div`
@@ -38,7 +40,7 @@ const LoginForm = () => {
     // 리덕스 스토어에 액션 디스패치
     // - 아이디와 비밀번호 값도 함께 보내기
     dispatch({
-      type: 'LOG_IN_REQUEST',
+      type: LOG_IN_REQUEST,
       data: { id, password },
     });
   }, [id, password]);

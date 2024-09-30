@@ -7,7 +7,7 @@ const { TextArea } = Input;
 
 // 리덕스 관련
 import { useSelector, useDispatch } from 'react-redux';
-import { addPostAction } from '../../reducers/post';
+import { ADD_POST_REQUEST } from '../../reducers/post';
 
 // PostForm 컴포넌트
 const PostForm = () => {
@@ -28,7 +28,7 @@ const PostForm = () => {
   const handlePostFormSubmit = useCallback(() => {
     console.log(text);
     dispatch({
-      type: 'ADD_POST_REQUEST',
+      type: ADD_POST_REQUEST,
       data: { text },
     });
     setText('');

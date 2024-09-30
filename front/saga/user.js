@@ -1,5 +1,9 @@
 import { call, take, takeEvery, put, delay } from 'redux-saga/effects';
+import { LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE } from '../reducers/user';
+import { LOG_OUT_REQUEST, LOG_OUT_SUCCESS, LOG_OUT_FAILURE } from '../reducers/user';
+
 import axios from 'axios';
+
 
 // 로그인 관련 와처 함수, 사가 함수, API 호출 함수
 // - 3초 대기 후에 LogInAPI 호출 실행
@@ -16,12 +20,12 @@ function* logIn(action) {
     yield delay(3000);
     const result = yield call(logInAPI, action.data)
     yield put({
-      type: 'LOG_IN_SUCCESS',
+      type: LOG_IN_SUCCESS,
       data: result.data
     });
   } catch(err) {
     yield put({
-      type: 'LOG_IN_FAILURE',
+      type: LOG_IN_FAILURE,
       data: err.response.data
     });
   }
@@ -29,7 +33,7 @@ function* logIn(action) {
 
 export function* watchLogIn() {
   while (true) {
-    const action = yield take('LOG_IN_REQUEST');
+    const action = yield take(LOG_IN_REQUEST);
     yield call(logIn, action);
   }
 }
@@ -45,17 +49,17 @@ function* logOut() {
   try {
     const result = yield call(logOutAPI);
     yield put({
-      type: 'LOG_OUT_SUCCESS',
+      type: LOG_OUT_SUCCESS,
       data: result.data
     });
   } catch(err) {
     yield put({
-      type: 'LOG_OUT_FAILURE',
+      type: LOG_OUT_FAILURE,
       data: err.response.data
     })
   }
 }
 
 export function* watchLogOut() {
-  yield takeEvery('LOG_OUT_REQUEST', logOut);
+  yield takeEvery(LOG_OUT_REQUEST, logOut);
 }

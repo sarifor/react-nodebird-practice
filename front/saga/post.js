@@ -1,4 +1,5 @@
 import { call, put, throttle } from 'redux-saga/effects';
+import { ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE } from '../reducers/post';
 import axios from 'axios';
 
 // 포스트 업로드 관련 와처 함수, 사가 함수, API 호출 함수
@@ -13,17 +14,17 @@ function* addPost(action) {
   try {
     const result = yield call(addPostAPI, action.data);
     yield put({
-      type: 'ADD_POST_SUCCESS',
+      type: ADD_POST_SUCCESS,
       data: result.data
     });
   } catch(err) {
     yield put({
-      type: 'ADD_POST_FAILURE',
+      type: ADD_POST_FAILURE,
       data: err.response.data
     })
   }
 }
 
 export function* watchAddPost() {
-  yield throttle(3000, 'ADD_POST_REQUEST', addPost);
+  yield throttle(3000, ADD_POST_REQUEST, addPost);
 }

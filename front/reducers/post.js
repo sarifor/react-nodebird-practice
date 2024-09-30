@@ -50,12 +50,16 @@ const dummyPost = {
   createdAt: new Date("2023-07-26T12:34:56Z"),
 };
 
+export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
+export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
+export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
+
 // 리듀서
 // - 상태를 불변하게 유지하며 새 요소를 배열의 앞쪽에 추가함으로,
 // - 최신 포스트가 상단에 위치하게 함
 const postReducer = ((state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_POST_SUCCESS': {
+    case ADD_POST_SUCCESS: {
       console.log("Original post: ", action.data);
       const newState = {
         ...state,
@@ -67,7 +71,7 @@ const postReducer = ((state = initialState, action) => {
       }
       return newState;
     }
-    case 'ADD_POST_FAILURE': {
+    case ADD_POST_FAILURE: {
       const newState = {
         ...state,
       }

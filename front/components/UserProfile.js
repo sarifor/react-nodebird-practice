@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { SignatureOutlined, HeartOutlined, TeamOutlined } from '@ant-design/icons';
 import { Card, Button } from 'antd';
 import { useDispatch } from 'react-redux';
+import { LOG_OUT_REQUEST } from '../reducers/user';
 
 const { Meta } = Card;
 
@@ -14,7 +15,7 @@ const UserProfile = () => {
     // 리덕스 스토어에 '액션' 디스패치
     // - 같이 보내는 데이터는 없음
     dispatch({
-      type: 'LOG_OUT_REQUEST',
+      type: LOG_OUT_REQUEST,
     });
   }, []);
 

@@ -24,7 +24,7 @@ import reducer from '../reducers';
 function loggerMiddleware() {
   return function(next) {
     return function(action) {
-      console.log(action);
+      console.log("loggerMiddleware: ", action);
       return next(action);
     }
   }

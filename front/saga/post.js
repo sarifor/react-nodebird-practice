@@ -1,5 +1,5 @@
 import { call, put, throttle } from 'redux-saga/effects';
-import { ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE } from '../reducers/post';
+import { ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE, ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE } from '../reducers/post';
 import axios from 'axios';
 
 // 포스트 업로드 관련 와처 함수, 사가 함수, API 호출 함수
@@ -27,4 +27,28 @@ function* addPost(action) {
 
 export function* watchAddPost() {
   yield throttle(3000, ADD_POST_REQUEST, addPost);
+}
+
+// 댓글 업로드 관련 와처 함수, 사가 함수, API 호출 함수
+function addCommentAPI(data) {
+  return axios.post('/api/addcomment', data);
+}
+
+function* addComment(action) {
+  try {
+    const result = yield call(addCommentAPI, action.data);
+    yield put({
+      type: ADD_COMMENT_SUCCESS,
+      data: result.data
+    });
+  } catch(err) {
+    yield put({
+      type: ADD_COMMENT_FAILURE,
+      data: err.response.data
+    })
+  }
+}
+
+export function* watchAddComment() {
+  yield throttle(3000, ADD_COMMENT_REQUEST, addComment);
 }

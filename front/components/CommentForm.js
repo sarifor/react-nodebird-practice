@@ -5,13 +5,17 @@ import { Button, Form, Input } from 'antd';
 const { Item } = Form;
 const { TextArea } = Input;
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { ADD_COMMENT_REQUEST } from '../reducers/post';
 
 // CommentForm 컴포넌트
 // - 포스트 작성자 아이디, 댓글 작성자 아이디, 댓글 데이터를 서버에 송신
 const CommentForm = ({ post }) => {
+  const dispatch = useDispatch();
+
   const postId = post?.id;
-  const id = useSelector(state => state.user.userInfo?.id)
+  const userId = useSelector(state => state.user.userInfo?.id)
 
   const [ comment, setComment ] = useState("");
 
@@ -20,7 +24,10 @@ const CommentForm = ({ post }) => {
   }
 
   const handleFormSubmit = useCallback(() => {
-    console.log(id, postId, comment);
+    dispatch({
+      type: ADD_COMMENT_REQUEST,
+      data: { userId, postId, comment },
+    })
   }, [comment]);
 
   return (

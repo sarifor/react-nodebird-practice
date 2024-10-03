@@ -50,28 +50,71 @@ const dummyPost = {
   createdAt: new Date("2023-07-26T12:34:56Z"),
 };
 
+
+// 액션명
+// - 댓글 관련 액션명도 Post reducer에서 관리
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 
+export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
+export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
+export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
+
+
 // 리듀서
 // - 상태를 불변하게 유지하며 새 요소를 배열의 앞쪽에 추가함으로,
-// - 최신 포스트가 상단에 위치하게 함
+//   최신 포스트가 상단에 위치하게 함
+// - 포스트 추가 시 더미 데이터를 기반으로 id, User.id, content, images만 바꿔 새 포스트 데이터로 삼음
+// - 댓글 추가 시 닉네임에 사용자 아이디 들어가게 해놓음
 const postReducer = ((state = initialState, action) => {
   switch (action.type) {
     case ADD_POST_SUCCESS: {
-      console.log("Original post: ", action.data);
+      const newPost = {
+        ...dummyPost,
+        id: action.data.userId,
+        User: {
+          ...dummyPost.User,
+          id: action.data.userId,
+        },
+        content: action.data.text,
+        Images: action.data.images ? [{ src: action.data.image }] : [],
+      };
+
       const newState = {
         ...state,
         mainPosts: [
-          dummyPost,
+          newPost,
           ...state.mainPosts,
         ],
         postAdded: true,
       }
+
       return newState;
     }
     case ADD_POST_FAILURE: {
+      const newState = {
+        ...state,
+      }
+      return newState;
+    }
+    case ADD_COMMENT_SUCCESS: {
+      const newState = {
+        ...state,
+        mainPosts: state.mainPosts.map((post) => {
+          if (post.id === action.data.postId) {
+            return {
+              ...post,
+              Comments: [...post.Comments, { User: { nickname: action.data.userId }, content: action.data.comment }],
+            };
+          } else {
+            return post;
+          }
+        }),
+      };
+      return newState;
+    }
+    case ADD_COMMENT_FAILURE: {
       const newState = {
         ...state,
       }

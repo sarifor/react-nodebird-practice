@@ -10,26 +10,34 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ADD_POST_REQUEST } from '../../reducers/post';
 
 // PostForm 컴포넌트
+// - Q. handleImageChange에서, 바이너리 파일(이미지)을 상태에 추가하려면?
 const PostForm = () => {
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const userId = userInfo.id;
   const { imagePaths } = useSelector((state) => state.post);
   const dispatch = useDispatch();
 
   const [ text, setText ] = useState('');
+  const [ image, setImage ] = useState([]);
   const imageInput = useRef();
 
   const handleTextChange = useCallback((e) => {
     setText(e.target.value);
   }, [text]);
 
+  const handleImageChange = useCallback((e) => {
+    const images = Array.from(e.target.files);
+    setImage(images);
+  }, [image]);
+
   // 폼 데이터 제출 함수
   // - text가 업데이트될 때마다 함수를 새로 생성하여, 항상 text의 최신 값을 사용
   // - 데이터는 중괄호로 감싸 객체 형태로 전달하기
   // - 실제로는 reducer에 마련해둔 더미 데이터가 업로드됨 
   const handlePostFormSubmit = useCallback(() => {
-    console.log(text);
     dispatch({
       type: ADD_POST_REQUEST,
-      data: { text },
+      data: { userId, text, image },
     });
     setText('');
   }, [text]);
@@ -58,7 +66,7 @@ const PostForm = () => {
         />
         
         <div style={{ marginTop: 10, textAlign: 'right' }}>
-          <input type="file" multiple hidden ref={imageInput} />
+          <input type="file" multiple hidden ref={imageInput} onChange={handleImageChange} />
           <Button onClick={handleImageUpload}>Upload Image</Button>
           <Button type="primary" htmlType="submit">Post</Button>
         </div>

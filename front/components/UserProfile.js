@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import { SignatureOutlined, HeartOutlined, TeamOutlined } from '@ant-design/icons';
 import { Card, Button } from 'antd';
+
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { LOG_OUT_REQUEST } from '../reducers/user';
 
@@ -8,6 +10,8 @@ const { Meta } = Card;
 
 // UserProfile 컴포넌트
 const UserProfile = () => {
+  const nickname = useSelector((state) => state.user.userInfo.nickname);
+
   // 디스패치 함수 가져오기
   const dispatch = useDispatch();
 
@@ -47,7 +51,7 @@ const UserProfile = () => {
         {/* 정보 */}
         <Meta
           // avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />}
-          title="Card title"
+          title={nickname}
           description="This is the description"
         />
       </Card>

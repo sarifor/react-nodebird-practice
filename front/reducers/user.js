@@ -15,6 +15,7 @@ export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 
 // 유저 리듀서
 // - Q. 리듀서의 LOG_IN_REQUEST 액션 처리와, 사가의 LOG_IN_REQUEST 액션 처리 중 어느 쪽이 먼저 실행?
+// - LOG_IN_SUCCESS 시, userInfo.nickname엔 더미 데이터 삽입(임시)
 const userReducer = ((state = initialState, action) => {
   switch (action.type) {
     case LOG_IN_REQUEST: {
@@ -29,7 +30,11 @@ const userReducer = ((state = initialState, action) => {
         ...state,
         isLoggedIn: true,
         isLoading: false,
-        userInfo: action.data,
+        userInfo: {
+          id: action.data.id,
+          password: action.data.password,
+          nickname: "TempCommonNickname",
+        }
       }
       return newState;
     }

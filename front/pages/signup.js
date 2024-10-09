@@ -1,43 +1,51 @@
 // 리액트 관련
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import useInput from '../hooks/useInput';
 import AppLayout from "../components/AppLayout";
+
+// Next.js 관련
+import { useRouter } from 'next/router';
 
 // Ant Design 관련
 import { Button, Form, Input } from 'antd';
 
 // 리덕스 관련
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { SIGNUP_REQUEST } from '../reducers/user';
 
 // Signup 컴포넌트
+// - Custom Hooks useInput에는 set 함수 내장되어 있음
+// - 모든 입력 데이터가 유효성 검사를 통과한 경우에만 SIGNUP_REQUEST
+// - Q. router.push('./index'); (X)  router.push('/'); (O)  이유?
 const Signup = () => {
-  // 리덕스에서 로그인 여부 상태 가져오기
-  const { isLoggedIn } = useSelector((state) => state.user);
+  const { isLoggedIn, isSignUpError } = useSelector((state) => state.user);
 
-  // ID Hooks 세트(Custom Hooks 사용)
   const [id, handleIdChange] = useInput('');  
-
-  // Nickname Hooks 세트(Custom Hooks 사용)
   const [nickname, handleNicknameChange] = useInput('');
-
-  // Password Hooks 세트
   const [password, setPassword] = useState('');
 
-  // 유저 정보를 콘솔에 표시
-  // - 모든 입력 데이터가 유효성 검사를 통과한 경우에만 유저 정보 표시
-  // - 예: Password와 Confirm Password가 일치하는 경우  
-  const handleFormSubmit = useCallback(() => {
-    console.log(id, nickname, password);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push('/');
+    }
+  }, [isLoggedIn]);
+   
+  const handleSignUpFormSubmit = useCallback(() => {
+    dispatch({
+      type: SIGNUP_REQUEST,
+      data: { id, nickname, password },
+    });
   }, [id, nickname, password]);
 
-  // 컴포넌트 렌더링
-  // - onSubmitForm 함수는, 입력한 데이터가 유효성 검사를 통과해야 호출됨: 
-  // - Trigger after submitting the form and verifying data successfully
   return (
     <AppLayout>
       {!isLoggedIn
       ? (<>
-          <Form onFinish={handleFormSubmit}
+          {isSignUpError && <div>You failed to sign up. Please try again</div>}
+          <Form onFinish={handleSignUpFormSubmit}
             labelCol={{
               span: 4,
             }}

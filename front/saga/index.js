@@ -1,5 +1,5 @@
 import { all, fork } from 'redux-saga/effects';
-import { watchLogIn, watchLogOut, watchEditNickname } from './user';
+import { watchLogIn, watchLogOut, watchEditNickname, watchSignUp } from './user';
 import { watchAddPost, watchAddComment } from './post';
 
 // 루트 사가
@@ -9,6 +9,7 @@ export default function* rootSaga() {
     fork(watchLogIn),
     fork(watchLogOut),
     fork(watchEditNickname),
+    fork(watchSignUp),
     fork(watchAddPost),
     fork(watchAddComment),
   ]);

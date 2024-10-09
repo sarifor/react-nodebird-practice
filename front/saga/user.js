@@ -1,7 +1,8 @@
-import { call, take, takeEvery, put, delay } from 'redux-saga/effects';
+import { call, take, takeEvery, takeLatest, put, delay } from 'redux-saga/effects';
 import { 
   LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE,
   LOG_OUT_REQUEST, LOG_OUT_SUCCESS, LOG_OUT_FAILURE,
+  SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE,
   EDIT_NICKNAME_REQUEST, EDIT_NICKNAME_SUCCESS, EDIT_NICKNAME_FAILURE,
 } from '../reducers/user';
 
@@ -91,4 +92,28 @@ function* editNickname(action) {
 
 export function* watchEditNickname() {
   yield takeEvery(EDIT_NICKNAME_REQUEST, editNickname);
+}
+
+// 회원 가입 관련 와처 함수, 사가 함수, API 호출 함수
+function signUpAPI(data) {
+  return axios.post('/api/signup', data);
+}
+
+function* signUp(action) {
+  try {
+    const result = yield call(signUpAPI, action.data);
+    yield put({
+      type: SIGNUP_SUCCESS,
+      data: result.data
+    });
+  } catch(err) {
+    yield put({
+      type: SIGNUP_FAILURE,
+      data: err.response.data
+    })
+  }
+}
+
+export function* watchSignUp() {
+  yield takeLatest(SIGNUP_REQUEST, signUp);
 }

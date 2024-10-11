@@ -9,6 +9,21 @@ export const initialState = {
   // loginData: {},
 }
 
+// 더미 유저
+// - data: id, password가 옴
+// - 속성명: 시퀄라이즈로 합쳐 주는 경우 대문자
+// - Q. ... 복습하기
+// - Q. id /= 유저 아이디. id를 뭘로 바꾸면 좋을까?
+const dummyUser = (data) => ({
+  ...data,
+  nickname: "CommonTempNickname",
+  // id: 1,
+  Posts: [],
+  Followings: [],
+  Followers: [],
+})
+
+// 더미 유저 배열
 const dummyUsers = [
   {
     isLoggedIn: false,
@@ -35,8 +50,9 @@ export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 
 // 유저 리듀서
-// - Q. 리듀서의 LOG_IN_REQUEST 액션 처리와, 사가의 LOG_IN_REQUEST 액션 처리 중 어느 쪽이 먼저 실행?
-// - LOG_IN_SUCCESS 시, userInfo.nickname엔 더미 데이터 삽입(임시)
+// - SIGNUP_SUCCESS 시, id, password, nickname을 받아 저장
+// - LOG_IN_SUCCESS 시, id, password를 받아 저장
+//   또한 dummyUser 함수를 통해 nickname에 임시 값 저장하고, Followings, Followers, Posts 속성 추가
 const userReducer = ((state = initialState, action) => {
   switch (action.type) {
     case LOG_IN_REQUEST: {
@@ -51,11 +67,7 @@ const userReducer = ((state = initialState, action) => {
         ...state,
         isLoggedIn: true,
         isLoading: false,
-        userInfo: {
-          id: action.data.id,
-          password: action.data.password,
-          nickname: "TempCommonNickname",
-        }
+        userInfo: dummyUser(action.data),
       }
       return newState;
     }
@@ -126,7 +138,6 @@ const userReducer = ((state = initialState, action) => {
         },
       }
       dummyUsers.push(newState);
-      console.log("reducers/user/SIGNUP_SUCCESS: ", dummyUsers);
       return newState;
     }
     case SIGNUP_FAILURE: {

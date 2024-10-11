@@ -34,11 +34,6 @@ const LoginForm = () => {
   // - 컴포넌트에 넣는 거라 useCallback으로 감쌈
   // - e.preventDefault() 생략함. onFinish에 이미 preventDefault 적용돼 있음
   const handleFormSubmit = useCallback(() => { 
-    // 아이디, 비밀번호 출력
-    console.log(id, password);
-
-    // 리덕스 스토어에 액션 디스패치
-    // - 아이디와 비밀번호 값도 함께 보내기
     dispatch({
       type: LOG_IN_REQUEST,
       data: { id, password },

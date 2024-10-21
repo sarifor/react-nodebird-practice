@@ -46,8 +46,7 @@ const LoginForm = () => {
   // LOG_IN_SUCCESS 후에 id와 password 값 없애기
   // - id와 password 값을 null로 변경하고 나서 빈 값 할당(순서를 지키기 위해 setTimeout 사용)
   // - 캐시 때문에 로그인 성공 후에도 id, password가 빈 값이 되지 않을 수 있음. 그땐 시크릿 탭에서 실행할 것
-  // - 클린업 함수: 컴포넌트 언마운트/업데이트 직전에 호출됨
-  // - Q. 클린업 함수 실행될 때 (업데이트 직전이므로) id, password가 입력값 그대로여야 하는데, 이미 빈 값이 되어있는 이유는?
+  // - 클린업 함수: 컴포넌트 언마운트/업데이트 직전에 호출됨. 이때 로그 찍어보면 id, password는 빈 값, isLoggedIn은 false
   useEffect(() => {
     if (isLoggedIn) {
       setId(null);
@@ -63,8 +62,8 @@ const LoginForm = () => {
       }, 10);
     }
     return () => {
-      console.log("CleanUp!");
-      console.log("LoginForm/useEffect/클린업 함수: ", id, password);
+      console.log("Clean Up!");
+      console.log("LoginForm/useEffect/cleanUp: ", id, password, isLoggedIn);
     };
   }, [isLoggedIn]);
 

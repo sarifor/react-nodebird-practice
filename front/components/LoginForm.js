@@ -43,7 +43,7 @@ const LoginForm = () => {
     });
   }, [id, password]);
 
-  // LOG_IN_SUCCESS 혹은 LOG_IN_FAILURE 후, id와 password 값 없애기
+  // LOG_IN_SUCCESS 후에 id와 password 값 없애기
   // - id와 password 값을 null로 변경하고 나서 빈 값 할당(순서를 지키기 위해 setTimeout 사용)
   // - 캐시 때문에 로그인 성공 후에도 id, password가 빈 값이 되지 않을 수 있음. 그땐 시크릿 탭에서 실행할 것
   // - Q. id, password에 빈 값을 할당한 후에 콘솔 로그 찍어보면 여전히 값이 있는 걸로 나오는 이유는?

@@ -97,8 +97,7 @@ const AppLayout = ({ children }) => {
 
       <Row> 
         <Col xs={24} md={6}>
-          <LoginForm />
-          {/*{isLoggedIn ? <UserProfile /> : <LoginForm /> } */}
+          {isLoggedIn ? <UserProfile /> : <LoginForm /> }
           {isLoading ? "Loading..." : ""}
         </Col>
         <Col xs={24} md={12}>

@@ -2,6 +2,7 @@
 // - Q. signUpData, loginData 용도?
 export const initialState = {
   isLoggedIn: false,
+  isLoggedInError: false,
   isLoading: false,
   userInfo: null,
   isSignUpError: false,
@@ -27,6 +28,7 @@ const dummyUser = (data) => ({
 const dummyUsers = [
   {
     isLoggedIn: false,
+    isLoggedInError: false,
     isLoading: false,
     userInfo: {
       id: "abc",
@@ -75,6 +77,7 @@ const userReducer = ((state = initialState, action) => {
       const newState = {
         ...state,
         isLoggedIn: false,
+        isLoggedInError: true,
         isLoading: false,
         userInfo: null,
       }

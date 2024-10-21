@@ -1,8 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { LOG_IN_REQUEST } from '../reducers/user';
 
@@ -14,6 +14,8 @@ export const StyledWrapper = styled.div`
 
 // LoginForm 컴포넌트
 const LoginForm = () => {
+  const { isLoggedIn } = useSelector((state) => state.user);
+
   // 디스패치 함수 가져오기
   const dispatch = useDispatch();
 
@@ -33,12 +35,34 @@ const LoginForm = () => {
   // 폼 제출 함수
   // - 컴포넌트에 넣는 거라 useCallback으로 감쌈
   // - e.preventDefault() 생략함. onFinish에 이미 preventDefault 적용돼 있음
+  // - 세터 함수(setId, setPassword 등)는 이곳에 넣지 않음. 송신했는데 서버 에러 시 기존에 쓴 내용이 다 지워지기 때문
   const handleFormSubmit = useCallback(() => { 
     dispatch({
       type: LOG_IN_REQUEST,
       data: { id, password },
     });
   }, [id, password]);
+
+  // LOG_IN_SUCCESS 혹은 LOG_IN_FAILURE 후, id와 password 값 없애기
+  // - id와 password 값을 null로 변경하고 나서 빈 값 할당(순서를 지키기 위해 setTimeout 사용)
+  // - 캐시 때문에 로그인 성공 후에도 id, password가 빈 값이 되지 않을 수 있음. 그땐 시크릿 탭에서 실행할 것
+  // - Q. id, password에 빈 값을 할당한 후에 콘솔 로그 찍어보면 여전히 값이 있는 걸로 나오는 이유는?
+  // - Q. useEffect 복습하기
+  useEffect(() => {
+    if (isLoggedIn) {
+      setId(null);
+      setPassword(null);
+      
+      setTimeout(() => {
+        setId('');
+        setPassword('');  
+      }, 0);
+
+      setTimeout(() => {
+        console.log(`LoginForm/useEffect(after login): isLoggedIn is ${isLoggedIn}, ${id}, ${password}`);
+      }, 10);
+    }
+  }, [isLoggedIn]);
 
   return (
     // 폼

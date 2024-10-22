@@ -12,7 +12,7 @@ const CommentList = ({ comments }) => {
       header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
       itemLayout="horizontal"
       renderItem={
-        (comment) => <Comment author={comment.User.nickname} content={comment.content} />
+        (comment) => <Comment key={comment.id} author={comment.User.nickname} content={comment.content} />
       }
     />
   )

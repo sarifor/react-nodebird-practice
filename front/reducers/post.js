@@ -17,10 +17,12 @@ export const initialState = {
     ],
     Comments: [
       {
+        id: "fan1",
         User: { nickname: 'fan1' },
         content: 'wanna go to bunnycam!',
       },
       {
+        id: "fan2",
         User: { nickname: 'fan2' },
         content: 'best dancer/singer!',
       },
@@ -108,7 +110,13 @@ const postReducer = ((state = initialState, action) => {
           if (post.id === action.data.postId) {
             return {
               ...post,
-              Comments: [...post.Comments, { User: { nickname: action.data.userId }, content: action.data.comment }],
+              Comments: [...post.Comments, {
+                id: nanoid(), 
+                User: { 
+                  nickname: action.data.userId,
+                }, 
+                content: action.data.comment,
+              }],
             };
           } else {
             return post;

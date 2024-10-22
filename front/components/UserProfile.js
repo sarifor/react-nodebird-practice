@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
-import { SignatureOutlined, HeartOutlined, TeamOutlined } from '@ant-design/icons';
+import { SignatureOutlined, TeamOutlined } from '@ant-design/icons';
 import { Card, Button } from 'antd';
+import Link from 'next/link';
 
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -44,8 +45,7 @@ const UserProfile = () => {
         // - React JSX 배열이므로 키 붙여주기
         actions={[
           <SignatureOutlined key="tweet" />,
-          <HeartOutlined key="followings" />,
-          <TeamOutlined key="followers" />,
+          <Link key="followingsFollowers" href="/profile"><TeamOutlined key="followingsFollowers" /></Link>,
         ]}
       >
         {/* 정보 */}

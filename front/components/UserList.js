@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Avatar, List } from 'antd';
 
-const UserList = ({ header, data }) => {
-  //
-  
+const UserList = ({ header, data }) => {  
   return (
     <>
       <List
@@ -21,16 +21,20 @@ const UserList = ({ header, data }) => {
         dataSource={data}
         renderItem={(item, index) => (
           <List.Item>
-            <List.Item.Meta // 속성명 지정됨
+            <List.Item.Meta
               avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} />}
-              title={<a href="https://ant.design">{item.nickname}</a>}
-              description={item.description}
+              title={<a href="https://ant.design">{item}</a>}
             />
           </List.Item>
         )}
       />
     </>
   )
+}
+
+UserList.propTypes = {
+  header: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 export default UserList;

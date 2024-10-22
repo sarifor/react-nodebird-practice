@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid';
+
 // 초깃값
 // - 더미 데이터
 export const initialState = {
@@ -30,7 +32,7 @@ export const initialState = {
 }
 
 const dummyPost = {
-  id: "hij",
+  id: "randomNanoid",
   User: {
     id: "hij",
     nickname: 'Minji Kim',
@@ -66,13 +68,14 @@ export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 // - 상태를 불변하게 유지하며 새 요소를 배열의 앞쪽에 추가함으로,
 //   최신 포스트가 상단에 위치하게 함
 // - 포스트 추가 시 더미 데이터를 기반으로 id, User.id, content, images만 바꿔 새 포스트 데이터로 삼음
+//   액션 발생 시 nanoid 생성
 // - 댓글 추가 시 닉네임에 사용자 아이디 들어가게 해놓음
 const postReducer = ((state = initialState, action) => {
   switch (action.type) {
     case ADD_POST_SUCCESS: {
       const newPost = {
         ...dummyPost,
-        id: action.data.userId,
+        id: nanoid(),
         User: {
           ...dummyPost.User,
           id: action.data.userId,

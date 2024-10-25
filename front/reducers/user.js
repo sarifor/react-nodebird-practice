@@ -51,11 +51,15 @@ export const EDIT_NICKNAME_FAILURE = 'EDIT_NICKNAME_FAILURE';
 export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
+export const ADD_POST_TO_ME_REQUEST = 'ADD_POST_TO_ME_REQUEST';
+export const ADD_POST_TO_ME_SUCCESS = 'ADD_POST_TO_ME_SUCCESS';
+export const ADD_POST_TO_ME_FAILURE = 'ADD_POST_TO_ME_FAILURE';
 
 // 유저 리듀서
 // - SIGNUP_SUCCESS 시, id, password, nickname을 받아 저장
 // - LOG_IN_SUCCESS 시, id, password를 받아 저장
 //   또한 dummyUser 함수를 통해 nickname에 임시 값 저장하고, Followings, Followers, Posts 속성 추가
+// - ADD_POST_TO_ME_SUCCESS에서, posts(X) Posts(O)
 const userReducer = ((state = initialState, action) => {
   switch (action.type) {
     case LOG_IN_REQUEST: {
@@ -151,6 +155,19 @@ const userReducer = ((state = initialState, action) => {
       }
       return newState;
     }
+    case ADD_POST_TO_ME_SUCCESS: {
+      const newState = {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          Posts: [...state.userInfo.Posts, action.data.postId]
+        }
+      }
+      return newState;
+    }
+    /* case ADD_POST_TO_ME_FAILURE: {
+      //
+    } */
     default:
       return state;
   }

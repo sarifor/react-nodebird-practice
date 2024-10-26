@@ -1,6 +1,6 @@
 import { all, fork } from 'redux-saga/effects';
-import { watchLogIn, watchLogOut, watchEditNickname, watchSignUp } from './user';
-import { watchAddPost, watchAddComment, watchAddPostToMe } from './post';
+import { watchLogIn, watchLogOut, watchEditNickname, watchSignUp, watchAddPostToMe } from './user';
+import { watchAddPost, watchAddComment } from './post';
 
 // 루트 사가
 // - 새로운 와치 함수 생길 때마다 여기에도 추가하는 것 잊지 말기!

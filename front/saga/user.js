@@ -1,13 +1,17 @@
-import { call, take, takeEvery, takeLatest, put, delay } from 'redux-saga/effects';
+import { call, take, takeEvery, takeLatest, put, delay, throttle, select } from 'redux-saga/effects';
 import { 
   LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE,
   LOG_OUT_REQUEST, LOG_OUT_SUCCESS, LOG_OUT_FAILURE,
   SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE,
   EDIT_NICKNAME_REQUEST, EDIT_NICKNAME_SUCCESS, EDIT_NICKNAME_FAILURE,
+  ADD_POST_TO_ME_REQUEST, ADD_POST_TO_ME_SUCCESS, ADD_POST_TO_ME_FAILURE,
 } from '../reducers/user';
 
 import axios from 'axios';
 
+// 막 생성된 postId 가져오기
+// - Q. 위치는 어디가 좋지? 전역변수 or addPostToMe 안(지역변수)?
+const latestPostId = (state) => state.post.mainPosts[0].id;
 
 // 로그인 관련 와처 함수, 사가 함수, API 호출 함수
 // - 3초 대기 후에 LogInAPI 호출 실행
@@ -116,4 +120,26 @@ function* signUp(action) {
 
 export function* watchSignUp() {
   yield takeLatest(SIGNUP_REQUEST, signUp);
+}
+
+// 포스트 정보 유저 추가 관련 와처 함수, 사가 함수, API 호출 함수
+// - Q. 'state'로 post state 가져오기, select?
+function* addPostToMe() {
+  try {
+    const postId = yield select(latestPostId);
+    
+    yield put({
+      type: ADD_POST_TO_ME_SUCCESS,
+      data: { postId },
+    });
+  } catch(err) {
+    yield put({
+      type: ADD_POST_TO_ME_FAILURE,
+      data: null // err.response.data
+    })
+  }
+}
+
+export function* watchAddPostToMe() {
+  yield throttle(3000, ADD_POST_TO_ME_REQUEST, addPostToMe);
 }

@@ -70,7 +70,7 @@ export const DELETE_LATEST_POST_REQUEST = 'DELETE_LATEST_POST_REQUEST';
 export const DELETE_LATEST_POST_SUCCESS = 'DELETE_LATEST_POST_SUCCESS';
 export const DELETE_LATEST_POST_FAILURE = 'DELETE_LATEST_POST_FAILURE';
 
-// 리듀서
+// 포스트 리듀서
 // - 상태를 불변하게 유지하며 새 요소를 배열의 앞쪽에 추가함으로,
 //   최신 포스트가 상단에 위치하게 함
 // - 포스트 추가 시 더미 데이터를 기반으로 id, User.id, content, images만 바꿔 새 포스트 데이터로 삼음
@@ -139,7 +139,7 @@ const postReducer = ((state = initialState, action) => {
     case DELETE_LATEST_POST_SUCCESS: {
       const newState = {
         ...state,
-        mainPosts: action.data.latestDeletedMainPosts,
+        mainPosts: [...action.data.latestDeletedMainPosts],
       }
       return newState;
     }

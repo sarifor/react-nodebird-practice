@@ -20,6 +20,8 @@ const Global = createGlobalStyle`
 
 const Home = () => {
   const { isLoggedIn } = useSelector((state) => state.user);
+  const { isAddPostToMeError } = useSelector((state) => state.user);
+  const { isLatestPostDeletedError } = useSelector((state) => state.post);
   const { mainPosts } = useSelector((state) => state.post);
 
   // 컴포넌트 렌더링
@@ -30,6 +32,7 @@ const Home = () => {
       <Global />
       <AppLayout>
         {isLoggedIn && <PostForm />}
+        {isAddPostToMeError && isLatestPostDeletedError && <div>Problem occured when uploading post. Please try again!</div>}
         {mainPosts.map((post) => <PostCard key={post.id} post={post} />)}
       </AppLayout>
     </div>

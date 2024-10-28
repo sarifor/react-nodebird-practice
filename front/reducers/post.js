@@ -31,6 +31,7 @@ export const initialState = {
   }],
   imagePaths: [],
   postAdded: false,
+  isLatestPostDeletedError: false,
 }
 
 const dummyPost = {
@@ -65,6 +66,9 @@ export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 
+export const DELETE_LATEST_POST_REQUEST = 'DELETE_LATEST_POST_REQUEST';
+export const DELETE_LATEST_POST_SUCCESS = 'DELETE_LATEST_POST_SUCCESS';
+export const DELETE_LATEST_POST_FAILURE = 'DELETE_LATEST_POST_FAILURE';
 
 // 리듀서
 // - 상태를 불변하게 유지하며 새 요소를 배열의 앞쪽에 추가함으로,
@@ -100,6 +104,7 @@ const postReducer = ((state = initialState, action) => {
     case ADD_POST_FAILURE: {
       const newState = {
         ...state,
+        postAdded: false,
       }
       return newState;
     }
@@ -128,6 +133,20 @@ const postReducer = ((state = initialState, action) => {
     case ADD_COMMENT_FAILURE: {
       const newState = {
         ...state,
+      }
+      return newState;
+    }
+    case DELETE_LATEST_POST_SUCCESS: {
+      const newState = {
+        ...state,
+        mainPosts: action.data.latestDeletedMainPosts,
+      }
+      return newState;
+    }
+    case DELETE_LATEST_POST_FAILURE: {
+      const newState = {
+        ...state,
+        isLatestPostDeletedError: true,
       }
       return newState;
     }

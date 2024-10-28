@@ -6,11 +6,14 @@ import {
   EDIT_NICKNAME_REQUEST, EDIT_NICKNAME_SUCCESS, EDIT_NICKNAME_FAILURE,
   ADD_POST_TO_ME_REQUEST, ADD_POST_TO_ME_SUCCESS, ADD_POST_TO_ME_FAILURE,
 } from '../reducers/user';
-
+import {
+  DELETE_LATEST_POST_REQUEST,
+} from '../reducers/post';
 import axios from 'axios';
 
-// 막 생성된 postId 가져오기
-// - Q. 위치는 어디가 좋지? 전역변수 or addPostToMe 안(지역변수)?
+// 막 생성된 postId, 전체 포스트 가져오기
+// - Q. 언제 가져오면 좋지? 전역변수 or 함수 안(지역변수)?
+// - Q. 왜 원래 이름(mainPosts)과 같은 이름의 변수에 할당하면 에러가 날까?
 const latestPostId = (state) => state.post.mainPosts[0].id;
 
 // 로그인 관련 와처 함수, 사가 함수, API 호출 함수
@@ -135,7 +138,10 @@ function* addPostToMe() {
   } catch(err) {
     yield put({
       type: ADD_POST_TO_ME_FAILURE,
-      data: null // err.response.data
+    });
+
+    yield put({
+      type: DELETE_LATEST_POST_REQUEST,
     })
   }
 }

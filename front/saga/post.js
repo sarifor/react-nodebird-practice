@@ -1,7 +1,16 @@
-import { call, put, throttle } from 'redux-saga/effects';
-import { ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE, ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE } from '../reducers/post';
+import { call, put, throttle, select } from 'redux-saga/effects';
+import { 
+  ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE, 
+  ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE, 
+  DELETE_LATEST_POST_REQUEST, DELETE_LATEST_POST_SUCCESS, DELETE_LATEST_POST_FAILURE
+} from '../reducers/post';
 import { ADD_POST_TO_ME_REQUEST } from '../reducers/user';
 import axios from 'axios';
+
+// 포스트 등록 여부, 최신 포스트 모음 가져오기
+// - Q. 언제 가져오면 좋지? 전역변수 or 함수 안(지역변수)?
+const postAdded = (state) => state.post.postAdded;
+const latestMainPosts = (state) => state.post.mainPosts;
 
 // 포스트 업로드 관련 와처 함수, 사가 함수, API 호출 함수
 // - 포스트 업로드는 3초당 최대 1번으로 제한
@@ -14,14 +23,19 @@ function addPostAPI(data) {
 function* addPost(action) {
   try {
     const result = yield call(addPostAPI, action.data);
-    yield put({
-      type: ADD_POST_SUCCESS,
-      data: result.data
-    });
+    
+    if (result) {
+      yield put({
+        type: ADD_POST_SUCCESS,
+        data: result.data
+      });
 
-    yield put({
-      type: ADD_POST_TO_ME_REQUEST,
-    })
+      if (postAdded) {
+        yield put({
+          type: ADD_POST_TO_ME_REQUEST,
+        })
+      }
+    }
   } catch(err) {
     yield put({
       type: ADD_POST_FAILURE,
@@ -56,4 +70,29 @@ function* addComment(action) {
 
 export function* watchAddComment() {
   yield throttle(3000, ADD_COMMENT_REQUEST, addComment);
+}
+
+// 가장 최신 게시물 삭제 관련 와처 함수, 사가 함수, API 호출 함수
+function* deleteLatestPost() {
+  try {
+    const mainPosts = yield select(latestMainPosts);
+
+    if (mainPosts) {
+      const latestDeletedMainPosts = mainPosts.slice(1);
+
+      yield put({
+        type: DELETE_LATEST_POST_SUCCESS,
+        data: { latestDeletedMainPosts }
+      });
+    }
+  } catch(err) {
+    yield put({
+      type: DELETE_LATEST_POST_FAILURE,
+      data: null // err.response.data
+    })
+  }
+}
+
+export function* watchDeleteLatestPost() {
+  yield throttle(3000, DELETE_LATEST_POST_REQUEST, deleteLatestPost);
 }

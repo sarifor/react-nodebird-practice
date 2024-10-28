@@ -6,6 +6,7 @@ export const initialState = {
   isLoading: false,
   userInfo: null,
   isSignUpError: false,
+  isAddPostToMeError: false,
   // signUpData: {},
   // loginData: {},
 }
@@ -60,6 +61,7 @@ export const ADD_POST_TO_ME_FAILURE = 'ADD_POST_TO_ME_FAILURE';
 // - LOG_IN_SUCCESS 시, id, password를 받아 저장
 //   또한 dummyUser 함수를 통해 nickname에 임시 값 저장하고, Followings, Followers, Posts 속성 추가
 // - ADD_POST_TO_ME_SUCCESS에서, posts(X) Posts(O)
+// - Q. userReducer에선 post 상태를 편집할 수 없다는데? 자세히 알아보기
 const userReducer = ((state = initialState, action) => {
   switch (action.type) {
     case LOG_IN_REQUEST: {
@@ -165,9 +167,13 @@ const userReducer = ((state = initialState, action) => {
       }
       return newState;
     }
-    /* case ADD_POST_TO_ME_FAILURE: {
-      //
-    } */
+    case ADD_POST_TO_ME_FAILURE: {
+      const newState = {
+        ...state,
+        isAddPostToMeError: true,
+      }
+      return newState;
+    }
     default:
       return state;
   }

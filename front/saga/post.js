@@ -14,7 +14,7 @@ const postAdded = (state) => state.post.postAdded;
 const latestMainPosts = (state) => state.post.mainPosts;
 
 // 포스트 업로드 관련 와처 함수, 사가 함수, API 호출 함수
-// - postID를 ADD_POST_REQUEST 단계에서 생성함으로, postID를 즉각 유저에게 넘길 수 있게 하기
+// - postId를 ADD_POST_REQUEST 단계에서 생성함으로, postId를 즉각 유저에게 넘길 수 있게 하기
 // - 포스트 업로드는 3초당 최대 1번으로 제한
 // - throttle: ignore incoming actions for a given period of time while processing a task
 // - CF) debounce: prevent calling saga until the actions are settled off

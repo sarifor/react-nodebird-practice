@@ -11,11 +11,6 @@ import {
 } from '../reducers/post';
 import axios from 'axios';
 
-// 막 생성된 postId, 전체 포스트 가져오기
-// - Q. 언제 가져오면 좋지? 전역변수 or 함수 안(지역변수)?
-// - Q. 왜 원래 이름(mainPosts)과 같은 이름의 변수에 할당하면 에러가 날까?
-const latestPostId = (state) => state.post.mainPosts[0].id;
-
 // 로그인 관련 와처 함수, 사가 함수, API 호출 함수
 // - 3초 대기 후에 LogInAPI 호출 실행
 // - take: 액션을 한 번만 감지. 동일 액션을 다시 감지하려면 while(true) 문이 필요(동기적)
@@ -126,11 +121,12 @@ export function* watchSignUp() {
 }
 
 // 포스트 정보 유저 추가 관련 와처 함수, 사가 함수, API 호출 함수
+// - 파라미터: data(X), action(O)
 // - Q. 'state'로 post state 가져오기, select?
-function* addPostToMe() {
+function* addPostToMe(action) {
   try {
-    const postId = yield select(latestPostId);
-    
+    const postId = action.data.postId;
+
     yield put({
       type: ADD_POST_TO_ME_SUCCESS,
       data: { postId },

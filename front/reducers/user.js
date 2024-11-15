@@ -15,6 +15,7 @@ export const initialState = {
 // - data: id, password가 옴
 // - 속성명: 시퀄라이즈로 합쳐 주는 경우 대문자
 // - Followings는 내가 팔로우하는 사람들, Followers는 나를 팔로워하는 사람들
+// - Posts: 해당 유저가 작성한 포스트 아이디 모음
 // - Q. ... 복습하기
 // - Q. id /= 유저 아이디. id를 뭘로 바꾸면 좋을까?
 const dummyUser = (data) => ({

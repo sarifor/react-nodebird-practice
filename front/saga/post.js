@@ -6,6 +6,7 @@ import {
 } from '../reducers/post';
 import { ADD_POST_TO_ME_REQUEST } from '../reducers/user';
 import axios from 'axios';
+import { nanoid } from 'nanoid';
 
 // 포스트 등록 여부, 최신 포스트 모음 가져오기
 // - Q. 언제 가져오면 좋지? 전역변수 or 함수 안(지역변수)?
@@ -13,6 +14,7 @@ const postAdded = (state) => state.post.postAdded;
 const latestMainPosts = (state) => state.post.mainPosts;
 
 // 포스트 업로드 관련 와처 함수, 사가 함수, API 호출 함수
+// - postID를 ADD_POST_REQUEST 단계에서 생성함으로, postID를 즉각 유저에게 넘길 수 있게 하기
 // - 포스트 업로드는 3초당 최대 1번으로 제한
 // - throttle: ignore incoming actions for a given period of time while processing a task
 // - CF) debounce: prevent calling saga until the actions are settled off
@@ -23,16 +25,25 @@ function addPostAPI(data) {
 function* addPost(action) {
   try {
     const result = yield call(addPostAPI, action.data);
+    const postId = nanoid();
     
     if (result) {
       yield put({
         type: ADD_POST_SUCCESS,
-        data: result.data
+        data: {
+          postId: postId,
+          userId: result.data.userId,
+          text: result.data.text,
+          image: result.data.image,
+        }
       });
 
       if (postAdded) {
         yield put({
           type: ADD_POST_TO_ME_REQUEST,
+          data: {
+            postId: postId,
+          }
         })
       }
     }

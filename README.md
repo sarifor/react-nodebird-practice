@@ -12,3 +12,18 @@ graph LR
     F --> H[DELETE_LATEST_POST_REQUEST]
     H --> I[DELETE_LATEST_POST_SUCCESS]
     H --> J[DELETE_LATEST_POST_FAILURE]
+
+    subgraph reducers/post.js
+      A
+      B
+      C
+      H
+      I
+      J
+    end
+
+    subgraph reducers/user.js
+      D
+      E
+      F
+    end

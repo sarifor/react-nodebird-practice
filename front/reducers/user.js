@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid';
+
 // 유저 초기 상태
 // - Q. signUpData, loginData 용도?
 export const initialState = {
@@ -17,11 +19,10 @@ export const initialState = {
 // - Followings는 내가 팔로우하는 사람들, Followers는 나를 팔로워하는 사람들
 // - Posts: 해당 유저가 작성한 포스트 아이디 모음
 // - Q. ... 복습하기
-// - Q. id /= 유저 아이디. id를 뭘로 바꾸면 좋을까?
 const dummyUser = (data) => ({
   ...data,
   nickname: "CommonTempNickname",
-  // id: 1,
+  id: nanoid(),
   Posts: [],
   Followings: ["tokyoBunnies", "Jeans"],
   Followers: ["MZ"],

@@ -97,6 +97,7 @@ export function* watchEditNickname() {
 }
 
 // 회원 가입 관련 와처 함수, 사가 함수, API 호출 함수
+// - Q. SIGNUP_FAILURE 시 data에 err.response.data를 담을 수 있게 하려면?
 function signUpAPI(data) {
   return axios.post('/api/signup', data);
 }
@@ -111,7 +112,7 @@ function* signUp(action) {
   } catch(err) {
     yield put({
       type: SIGNUP_FAILURE,
-      data: err.response.data
+      data: "error!"
     })
   }
 }

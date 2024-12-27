@@ -1,3 +1,4 @@
+import { produce } from 'immer';
 import { nanoid } from 'nanoid';
 
 // 유저 초기 상태
@@ -6,7 +7,7 @@ export const initialState = {
   isLoggedIn: false,
   isLoggedInError: false,
   isLoading: false,
-  userInfo: null,
+  userInfo: {},
   isSignUpError: false,
   isAddPostToMeError: false,
   // signUpData: {},
@@ -67,10 +68,9 @@ export const ADD_POST_TO_ME_FAILURE = 'ADD_POST_TO_ME_FAILURE';
 const userReducer = ((state = initialState, action) => {
   switch (action.type) {
     case LOG_IN_REQUEST: {
-      const newState = {
-        ...state,
-        isLoading: true,
-      }
+      const newState = produce(state, draft => {
+        draft.isLoading = true;
+      });
       return newState;
     }
     case LOG_IN_SUCCESS: {
@@ -138,17 +138,13 @@ const userReducer = ((state = initialState, action) => {
       return newState;
     }
     case SIGNUP_SUCCESS: {
-      const newState = {
-        ...state,
-        isLoggedIn: true,
-        isLoading: false,
-        userInfo: {
-          ...state.userInfo,
-          id: action.data.id,
-          password: action.data.password,
-          nickname: action.data.nickname,
-        },
-      }
+      const newState = produce(state, draft => {
+        draft.isLoggedIn = true;
+        draft.isLoading = false;
+        draft.userInfo.id = action.data.id;
+        draft.userInfo.password = action.data.password;
+        draft.userInfo.nickname = action.data.nickname;
+      });
       dummyUsers.push(newState);
       return newState;
     }

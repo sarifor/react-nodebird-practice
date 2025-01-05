@@ -21,6 +21,7 @@ const Global = createGlobalStyle`
 `;
 
 // Home 컴포넌트
+// - useEffect의 두 번째 파라미터로 빈 배열을 넣어줌으로, 컴포넌트 마운트 시에만 실행되게 함
 // - Q. useEffect에서 generateDummyPost()를 직접 호출하기보단 액션을 디스패치하는 게 리덕스 상태 관리 패턴에 맞다고 함. 상세?
 const Home = () => {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const Home = () => {
     dispatch({
       type: LOAD_POSTS_REQUEST,
     })
-  });
+  }, []);
 
   return (
     <div>

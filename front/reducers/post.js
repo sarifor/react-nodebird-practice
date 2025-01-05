@@ -23,6 +23,7 @@ export const initialState = {
 // 더미 포스트
 // - 일부 더미 데이터는 faker로 생성
 // - 불변성 유지
+// - Q. 여기에서만은 불변성 유지하지 말아야 하나? initialState를 덮어씌워야 하니까
 export const dummyPost = {
   mainPosts: [{
     id: "abc",
@@ -56,18 +57,18 @@ export const dummyPost = {
 }
 
 export const generateDummyPost = (state) => {
+  const dummyPosts = [...Array(20)].map(() => ({
+    id: faker.string.uuid(),
+    User: { id: faker.string.uuid(), nickname: faker.internet.username() },
+    content: faker.lorem.lines(),
+    Images: [],
+    Comments: [],
+    createdAt: faker.date.past(),
+  }));
+
   return {
     ...state,
-    mainPosts: [
-      {
-        id: faker.string.uuid(),
-        User: faker.internet.username(),
-        content: faker.lorem.lines(),
-        Images: null,
-        Comments: null,
-        createdAt: faker.date.past(),
-      },
-    ],
+    mainPosts: [ ...dummyPosts, ...state.mainPosts],
     postAdded: false,
     isLatestPostDeletedError: false,
   };

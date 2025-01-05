@@ -1,8 +1,29 @@
 import { nanoid } from 'nanoid';
+import { faker } from '@faker-js/faker';
 
 // 초깃값
-// - 더미 데이터
+// - imagePath 사용 보류 중
 export const initialState = {
+  mainPosts: [{
+    id: "",
+    User: {
+      id: "",
+      nickname: "",
+    },
+    content: "",
+    Images: [],
+    Comments: [],
+    createdAt: null,
+  }],
+  // imagePaths: [],
+  postAdded: null,
+  isLatestPostDeletedError: null,
+}
+
+// 더미 포스트
+// - 일부 더미 데이터는 faker로 생성
+// - 불변성 유지
+export const dummyPost = {
   mainPosts: [{
     id: "abc",
     User: {
@@ -29,11 +50,30 @@ export const initialState = {
     ],
     createdAt: new Date("2023-07-26T12:34:56Z"),
   }],
-  imagePaths: [],
+  // imagePaths: [],
   postAdded: false,
   isLatestPostDeletedError: false,
 }
 
+export const generateDummyPost = (state) => {
+  return {
+    ...state,
+    mainPosts: [
+      {
+        id: faker.string.uuid(),
+        User: faker.internet.username(),
+        content: faker.lorem.lines(),
+        Images: null,
+        Comments: null,
+        createdAt: faker.date.past(),
+      },
+    ],
+    postAdded: false,
+    isLatestPostDeletedError: false,
+  };
+};
+
+/*
 const dummyPost = {
   id: "randomNanoid",
   User: {
@@ -54,10 +94,14 @@ const dummyPost = {
   ],
   createdAt: new Date("2023-07-26T12:34:56Z"),
 };
-
+*/
 
 // 액션명
 // - 댓글 관련 액션명도 Post reducer에서 관리
+export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
+export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
+export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
+
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
@@ -77,6 +121,16 @@ export const DELETE_LATEST_POST_FAILURE = 'DELETE_LATEST_POST_FAILURE';
 // - 댓글 추가 시 닉네임에 사용자 아이디 들어가게 해놓음
 const postReducer = ((state = initialState, action) => {
   switch (action.type) {
+    case LOAD_POSTS_SUCCESS: {
+      const newState = generateDummyPost(state);
+      return newState;
+    }
+    case LOAD_POSTS_FAILURE: {
+      const newState = {
+        ...state,
+      }
+      return newState;
+    }
     case ADD_POST_SUCCESS: {
       const newPost = {
         ...dummyPost,

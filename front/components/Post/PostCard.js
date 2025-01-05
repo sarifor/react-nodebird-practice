@@ -77,7 +77,7 @@ const PostCard = ({ post }) => {
     <>
       <Card 
         style={{ width: 'auto', margin: 'auto', marginTop: 20 }}
-        cover={post.Images[0] && <PostImages images={post.Images} />}
+        cover={post.Images?.length > 0 && <PostImages images={post.Images} />}
         actions={actions}
       >
         <Card.Meta

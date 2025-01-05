@@ -1,5 +1,6 @@
 import { call, put, throttle, select } from 'redux-saga/effects';
 import { 
+  LOAD_POSTS_REQUEST, LOAD_POSTS_SUCCESS, LOAD_POSTS_FAILURE,
   ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE, 
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE, 
   DELETE_LATEST_POST_REQUEST, DELETE_LATEST_POST_SUCCESS, DELETE_LATEST_POST_FAILURE
@@ -12,6 +13,24 @@ import { nanoid } from 'nanoid';
 // - Q. 언제 가져오면 좋지? 전역변수 or 함수 안(지역변수)?
 const postAdded = (state) => state.post.postAdded;
 const latestMainPosts = (state) => state.post.mainPosts;
+
+// 더미 포스트 로드 관련 와처 합수, 사가 함수
+// - Q. throttle 말고 다른 거 써도 되나?
+function* loadPosts() {
+  try {
+    yield put({
+      type: LOAD_POSTS_SUCCESS,
+    })
+  } catch (err) {
+    yield put({
+      type: LOAD_POSTS_FAILURE,
+    })
+  }
+}
+
+export function* watchLoadPosts() {
+  yield throttle(2000, LOAD_POSTS_REQUEST, loadPosts);
+}
 
 // 포스트 업로드 관련 와처 함수, 사가 함수, API 호출 함수
 // - postId를 ADD_POST_REQUEST 단계에서 생성함으로, postId를 즉각 유저에게 넘길 수 있게 하기

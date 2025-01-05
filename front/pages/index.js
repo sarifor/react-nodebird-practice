@@ -1,14 +1,16 @@
 // React 불러오기
 // - Next.js에선 필요없음
 // - 제로초님은 그냥 습관적으로 적어줌
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import AppLayout from "../components/AppLayout";
 import { PostForm, PostCard } from "../components/Post";
 
 import { createGlobalStyle } from 'styled-components';
 
-import { useSelector } from 'react-redux';
+// 리덕스 관련
+import { useSelector, useDispatch } from 'react-redux';
+import { LOAD_POSTS_REQUEST } from '../reducers/post';
 
 // 모든 Ant Desgin 버튼의 글자색을 파랑으로 변경
 // - Q. 함수 컴포넌트 밖에 둬도 되나?
@@ -18,15 +20,22 @@ const Global = createGlobalStyle`
   }
 `;
 
+// Home 컴포넌트
+// - Q. useEffect에서 generateDummyPost()를 직접 호출하기보단 액션을 디스패치하는 게 리덕스 상태 관리 패턴에 맞다고 함. 상세?
 const Home = () => {
+  const dispatch = useDispatch();
+
   const { isLoggedIn } = useSelector((state) => state.user);
   const { isAddPostToMeError } = useSelector((state) => state.user);
   const { isLatestPostDeletedError } = useSelector((state) => state.post);
   const { mainPosts } = useSelector((state) => state.post);
 
-  // 컴포넌트 렌더링
-  // - map 함수로 반복되는 컴포넌트 렌더링
-  // - 배열 내 각 요소를 원하는 규칙에 따라 변환한 후, 그 결과로 새로운 요소를 반환
+  useEffect(() => {
+    dispatch({
+      type: LOAD_POSTS_REQUEST,
+    })
+  });
+
   return (
     <div>
       <Global />

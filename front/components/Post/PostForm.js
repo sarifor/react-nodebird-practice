@@ -10,11 +10,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ADD_POST_REQUEST } from '../../reducers/post';
 
 // PostForm 컴포넌트
+// - imagePaths 사용 보류 중
 // - Q. handleImageChange에서, 바이너리 파일(이미지)을 상태에 추가하려면?
 const PostForm = () => {
   const userInfo = useSelector((state) => state.user.userInfo);
   const userId = userInfo.id;
-  const { imagePaths } = useSelector((state) => state.post);
+  // const { imagePaths } = useSelector((state) => state.post);
   const dispatch = useDispatch();
 
   const [ text, setText ] = useState('');
@@ -52,7 +53,7 @@ const PostForm = () => {
         - 입력란
         - 이미지 업로드 버튼
         - 포스트 제출 버튼
-        - 업로드된 이미지 표시(구현 중) */}
+        - 업로드된 이미지 표시(구현 보류 중) */}
       <Form 
         style={{ margin: 'auto', marginTop: 20 }}
         onFinish={handlePostFormSubmit}
@@ -71,7 +72,7 @@ const PostForm = () => {
           <Button type="primary" htmlType="submit">Post</Button>
         </div>
         
-        <div>
+        {/* <div>
           {imagePaths.map((v) => (
             <div key={v}>
               <img src={v} />
@@ -80,7 +81,7 @@ const PostForm = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
       </Form>    
     </>
   );

@@ -31,10 +31,16 @@ const Home = () => {
   const { isLatestPostDeletedError } = useSelector((state) => state.post);
   const { mainPosts } = useSelector((state) => state.post);
 
+  const handleScroll = () => {
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight) {
+      dispatch({
+        type: LOAD_POSTS_REQUEST,
+      });
+    }
+  };
+
   useEffect(() => {
-    dispatch({
-      type: LOAD_POSTS_REQUEST,
-    })
+    window.addEventListener('scroll', handleScroll);
   }, []);
 
   return (
